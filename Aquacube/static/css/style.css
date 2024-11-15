@@ -1,0 +1,513 @@
+* {
+  --color-white: #FAFAFA;
+  --color-black: #1D242B;
+  --color-dayblue: #C7EEFF;
+  --color-darkblue: #0077C0;
+}
+
+/* NAVBAR SECTION */
+.navbar {
+  background-color: var(--color-white);
+  height: 100px;
+
+}
+.navbar img{
+  width: 120px;
+}
+.navbar li{
+  color: #C7EEFA;
+  font-weight: bold;
+}
+.btn-signup {
+  color: var(--color-black);
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  width: 120px;
+  height: 50px;
+  font-size: 16px;
+}
+.btn-signup:hover {
+  color: var(--color-darkblue);
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-size: 16px;
+}
+.btn-signin {
+  background-color: var(--color-darkblue);
+  color: var(--color-black);
+  font-weight: bold;
+  width: 120px;
+  height: 50px;
+  font-size: 16px;
+}
+.btn-signin:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  font-size: 16px;
+}
+
+/* BODY SECTION */
+body{
+  font-family: "Poppins", serif;
+}
+
+/* FOOTER SECTION */
+.foot{
+  /* background-color: #C7EEFA; */
+  background: var(--color-white);
+}
+.foot h5{
+  color: var(--color-black);
+  font-weight: bold;
+  font-size: 20px;
+}
+.foot img{
+  width: 20px;
+}
+.foot p{
+  color: var(--color-black);
+  font-weight: 500;
+}
+.foot li a{
+  color: black;
+  font-weight: 500;
+}
+.foot a{
+  color: black;
+  font-weight: 500;
+}
+.foot h5{
+  color: var(--color-darkblue);
+}
+
+/* HERO SECTION */
+.hero-content img{
+width: 2100px;
+height: 1050px;
+}
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-darkblue);
+  border-radius: 50px;
+}
+.carousel-control-prev-icon:hover,
+.carousel-control-next-icon:hover {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-black);
+  border-radius: 50px;
+}
+
+/* ABOUT SECTION */
+.col-about img{
+  box-shadow: 10px 10px 0 3px var(--color-dayblue);
+}
+.col-about h2 {
+  color: var(--color-darkblue);
+  font-size: 40px;
+  font-weight: bold;
+}
+.col-about span {
+  color: var(--color-darkblue);
+  font-weight: bold;
+  text-align: justify;
+}
+.col-about p {
+  color: var(--color-black);
+  font-weight: 500;
+  text-align: justify;
+  line-height: 2rem;
+}
+.col-about button {
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 220px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+.col-about button:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 220px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+}
+.about-container h2{
+  color: var(--color-darkblue);
+  font-size: 40px;
+  font-weight: bold;
+}
+.about-image{
+  border-radius: 200px; 
+}
+
+/* UNDER HERO SECTION */
+.custom-card {
+  background: linear-gradient(100deg, var(--color-dayblue), var(--color-darkblue));
+  box-shadow: 10px 10px 0 3px var(--color-dayblue);
+  width: 100rem;
+  height: 200px;
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50px;
+}
+.custom-card h2 {
+  color: var(--color-white);
+  font-size: 30px;
+  font-weight: bold;
+}
+.custom-card p {
+  color: var(--color-white);
+  font-weight: 500;
+}
+
+.card-title {
+  align-items: center;
+}
+.image-container {
+  position: relative;
+  width: 400px;
+  height: 500px; 
+}
+.image-container img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px; 
+}
+
+/* SERVICE SECTION */
+.card-service {
+  width: 100%;
+  height: 313px;
+  border-radius: 5px;
+  background: linear-gradient(150deg, var(--color-dayblue), var(--color-darkblue));
+  padding: 40px;
+  box-shadow: 10px 10px 0 3px var(--color-dayblue);
+}
+.card-service:hover {
+  width: 100%;
+  height: 313px;
+  border-radius: 5px;
+  background: var(--color-darkblue);
+  padding: 40px;
+  box-shadow: 10px 10px 0 3px var(--color-dayblue);
+}
+.card-service h3 {
+  font-size: 24px;
+  color: var(--color-white);
+  font-weight: bold;
+}
+.card-service p {
+  font-size: 16px;
+  color: var(--color-white);
+}
+.card-service .circle-bg {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: var(--color-white);
+}
+.row-service h2{
+  color: var(--color-darkblue);
+  font-size: 40px;
+  font-weight: bold;
+}
+.row-service p{
+  color: var(--color-black);
+  font-weight: 500;
+}
+
+/* AGENT SECTION */
+.col-agent h2{
+  color: var(--color-darkblue);
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 30px;
+}
+.col-agent p{
+  color: var(--color-black);
+  font-weight: 500;
+  text-align: justify;
+  line-height: 2rem;
+}
+.col-agent button{
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+.col-agent button:hover{
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+}
+.img-agent {
+  box-shadow: 10px 10px 0 3px var(--color-dayblue);
+}
+
+/* PRODUCT SECTION */
+.card-text h3 {
+  color: var(--color-black);
+  font-size: 30px;
+  font-weight: bold;
+}
+.card-text p{
+  color: var(--color-black);
+  font-size: 18px;
+  font-weight: 600;
+}
+.row-product h2 {
+  color: var(--color-darkblue);
+  font-size: 40px;
+  font-weight: bold;
+}
+.row-product .btn-product {
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+.row-product .btn-product:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+.card-product .img:hover {
+  background-color: rgba(19, 85, 139, 0.507);
+  border-radius: 10px;
+}
+.card-product img {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+}
+.card-product .btn-product-Buy{
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+.card-product .btn-product-Buy:hover{
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+.btn-product-slide .circle-bg {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: var(--color-black);
+}
+.btn-product-slide .circle-bg:hover {
+  width: 70px;
+  height: 70px;
+  border-radius: 100%;
+  background-color: var(--color-darkblue);
+}
+
+
+/* product page */
+
+.card-product-page .img:hover {
+  background-color: rgba(19, 85, 139, 0.507);
+  border-radius: 10px;
+  margin-top: 100px
+}
+.card-product-page img {
+  width: 300px;
+  height: 450px;
+  border-radius: 10px;
+  margin-top: 100px;
+}
+.card-product-page .btn-product-Buy-page{
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+.card-product-page .btn-product-Buy-page:hover{
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 100px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+/* .card-product-page:hover .additional-text {
+  display: block;
+  position: absolute;
+  top: 70%;
+  width: 100%;
+  text-align: center;
+  font-size: 100px;
+  color: var(--color-black);
+} */
+.card-text-product-page h3 {
+  color: var(--color-black);
+  font-size: 30px;
+  font-weight: bold;
+}
+.card-text-product-page p{
+  color: var(--color-black);
+  font-size: 18px;
+  font-weight: 600;
+}
+/* .card-product-page:hover h3 p{
+  color: var(--color-darkblue);
+} */
+
+/* form page */
+.form-page {
+  margin-top: 150px;
+}
+.btn-submit-agent {
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+.btn-submit-agent:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 200px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+
+/* SIGN IN PAGE */
+.signin-form{
+padding: 200px;
+}
+.signin-form form{
+  background: var(--color-dayblue);
+  max-width: 800px;
+  max-height: 800px;
+  margin: auto;
+  padding: 50px 70px;
+  border-radius: 20px;
+  box-shadow: 0px 2px 10px var(--color-dayblue);
+}
+.signin-form .form-icon{
+text-align: center;
+  background-color: var(--color-white);
+  border-radius: 50%;
+  font-size: 40px;
+  width: 100px;
+  height: 100px;
+  margin: auto;
+  margin-bottom: 50px;
+  line-height: 100px;
+  box-shadow: var(--color-dayblue);
+}
+.signin-form .item{
+  border-radius: 20px;
+  margin-bottom: 25px;
+  color: var(--color-darkblue);
+  padding: 10px 20px;
+}
+.signin-form .create-account{
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-darkblue);
+  font-weight: bold;
+}
+.signin-form .create-account:hover{
+  background-color: var(--color-black);
+  color: var(--color-white);
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  font-weight: bold;
+}
+
+/* SIGN UP PAGE */
+.signup-form{
+  padding: 100px;
+  }
+  .signup-form form{
+    background: var(--color-dayblue);
+    max-width: 800px;
+    max-height: 800px;
+    margin: auto;
+    padding: 50px 70px;
+    border-radius: 20px;
+    box-shadow: 0px 2px 10px var(--color-dayblue);
+  }
+  .signup-form .form-icon{
+  text-align: center;
+    background-color: var(--color-white);
+    border-radius: 50%;
+    font-size: 40px;
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 50px;
+    line-height: 100px;
+    box-shadow: var(--color-dayblue);
+  }
+  .signup-form .item{
+    border-radius: 20px;
+    margin-bottom: 25px;
+    color: var(--color-darkblue);
+    padding: 10px 20px;
+  }
+  .signup-form .create-account{
+    background-color: var(--color-darkblue);
+    color: var(--color-white);
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border-color: var(--color-darkblue);
+    font-weight: bold;
+  }
+  .signup-form .create-account:hover{
+    background-color: var(--color-black);
+    color: var(--color-white);
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    border-color: var(--color-black);
+    font-weight: bold;
+  }

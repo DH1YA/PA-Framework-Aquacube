@@ -1,0 +1,250 @@
+{% extends "dashboard_agent/layout.html" %}
+{% load static %}
+{% block title %}Home - Agent{% endblock %}
+
+{% block content %}
+    <!-- tab1(HERO) -->
+     <section id="hero">
+      <div id="carouselExampleDark" class="carousel slide hero-slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active hero-content" data-bs-interval="10000">
+            <img src="{% static 'images/Aquacube.png' %}" class="d-block image-fluid" alt="...">
+          </div>
+          <div class="carousel-item hero-content" data-bs-interval="2000">
+            <img src="{% static 'images/Aquacube1.png' %}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+  
+      <div class="card mx-auto custom-card">
+        <div class="card-body mx-auto d-block">
+          <h2 class="text-center mt-5">Hydrate Better with AquaCube!</h2>
+          <p class="text-center">AquaCube brings you top-quality ice and mineral water for all your needs. Enjoy fast delivery and sustainable practices. Reach out to AquaCube today for a refreshing experience!</p>
+        </div>
+      </div>
+
+    <!-- tab2(ABOUT) -->
+     <section id="about">
+      <div class="container">
+        <div class="row mt-5">
+          <div class="col-3 p-3 col-about mt-5">
+            <img src="{% static 'images/about.png' %}" class=" w-100 mt-5" alt="Logo" />
+            <img src="{% static 'images/about3.png' %}" class=" w-100 mt-5" alt="Logo" />
+          </div>
+          <div class="col-sm-9 p-3 mt-5 col-about">
+            <h2 class="pb-3 mt-5"> About Aquacube </h2>
+            <p> 
+              <span> At Aquacube, </span> we are committed to providing the highest 
+              quality ice cubes and pure, refreshing water for all your hydration needs. Founded with a passion for 
+              purity and freshness, we focus on delivering products that elevate the drinking experience for our 
+              customers. Whether you're enjoying a cold beverage on a hot summer day or hosting a special event, 
+              AquaCube ensures that every sip is cool, crisp, and refreshing.</p>
+            <p>
+              Our ice cubes are crafted with care and precision, using only the finest water to ensure purity and clarity. 
+              We understand the importance of quality, which is why each cube is perfectly shaped to chill your drink 
+              without diluting its flavor. Our water is sourced from trusted suppliers, and we take pride in offering a 
+              product that is both refreshing and responsibly delivered, so you can feel good about every drop you drink.</p>
+            <p>
+              AquaCube isn’t just about providing ice and water; it's about offering a superior experience. Whether you're 
+              at home, at work, or hosting a large gathering, we deliver convenience and quality straight to your door. 
+              Join the AquaCube family today and discover how our ice cubes and water can enhance your everyday moments.</p>
+            <a href="/"> <button class="btn btn-info px-5 py-32 mt-3 fs-5" type="button"> Read More </button> </a>
+          </div>
+        </div>      
+      </div>
+     </section>
+
+    <!-- tab3(SERVICE) -->
+    <section id="service">
+      <div class="container mx-auto">
+        <div class="row row-service">
+          <div class="col-12 text-center mt-5">
+            <h2> Our Service </h2>
+            <p> From the purity of our products to the reliability of our delivery, AquaCube is 
+              dedicated to making hydration effortless and enjoyable for every customer. Our commitment 
+              to quality ensures that every product meets our high standards, while our pricing remains 
+              accessible.</p>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-md-4 text-center">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_highquality.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">High-Quality Products</h3>
+              <p class="mt-3">Enjoy the best quality ice and mineral water, crafted to refresh and hydrate with every sip.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_fastdelivery.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">Fast and Reliable Delivery</h3>
+              <p class="mt-3">We deliver freshness right to your doorstep, fast and reliably, so you never run out of what you need.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 text-center">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_sustainable.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">Sustainable Practices</h3>
+              <p class="mt-3">Drink with peace of mind – AquaCube’s commitment to sustainability means you’re helping the planet too.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 text-center mt-5">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_affordable.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">Affordable Prices</h3>
+              <p class="mt-3">Quality doesn’t have to break the bank. AquaCube offers premium ice and water at affordable prices.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 text-center mt-5">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_onlineorder.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">Convenient Online Ordering</h3>
+              <p class="mt-3">Order in a few clicks! AquaCube makes it easy to get your ice and water without leaving your home.</p>
+            </div>
+          </div>
+
+          <div class="col-md-4 text-center mt-5">
+            <div class="card-service">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon_customerservice.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+              <h3 class="mt-4">Excellent Customer Service</h3>
+              <p class="mt-3">Our team is here to make sure your experience with AquaCube is refreshing, every step of the way.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- tab5(PRODUCT) -->
+    <section id="product" class="overflow-hidden">
+      <div class="container position-relative">
+        <div class="row row-product mb-4 d-flex justify-content-between align-items-center">
+          <div class="col-sm-9 mt-5">
+            <h2>Our Product</h2>
+          </div>
+          <div class="col-3 mt-5 text-end">
+            <a href="/product">
+              <button class="btn-product">
+                See More
+              </button>
+            </a>
+          </div>
+        </div>
+    
+        <div id="carouselExampleControls" class="carousel carousel-dark slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="card-wrapper container-sm d-flex justify-content-around">
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product1.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Bootle Water</h3>
+                      <p>IDR. 10.000/Bottle</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product5.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Infuse Water</h3>
+                      <p>IDR. 20.000/Bottle</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product2.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Ice Package</h3>
+                      <p>IDR. 30.000/Pack</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    
+            <div class="carousel-item">
+              <div class="card-wrapper container-sm d-flex justify-content-around">
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product6.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Ice Bucket</h3>
+                      <p>IDR. 20.000/Bucket</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product4.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Water Gallon</h3>
+                      <p>IDR. 20.000/Gallon</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card-product me-3 position-relative">
+                  <img src="{% static 'images/product3.png' %}" class="" alt="">
+                  <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                    <div class="card-text position-absolute top-50 start-50 translate-middle text-center">
+                      <h3>Ice Cubes</h3>
+                      <p>IDR. 5.000/Pax</p>
+                      <button class="btn-product-Buy">Buy</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+    
+          <div class="btn-product-slide">
+            <button class="btn-product-previous carousel-control-prev position-absolute start-0 top-50 translate-middle-y" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon-previous.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+            </button>
+      
+            <button class="btn-product-next carousel-control-next position-absolute end-0 top-50 translate-middle-y" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+              <div class="circle-bg position-relative mx-auto">
+                <img src="{% static 'images/icon-next.png' %}" alt="" class="position-absolute top-50 start-50 translate-middle">
+              </div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+{% endblock %}
