@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
+    'main_app', #aplikasi utama
+    'django_bootstrap5', # bootstrap5
+    
 ]
 
 MIDDLEWARE = [
@@ -75,8 +79,12 @@ WSGI_APPLICATION = 'Aquacube.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'aquacube',
+        'USER': 'root', # User default MySQL di XAMPP
+        'PASSWORD': '', # Biasanya password default di XAMPP kosong (tidak diisi)
+        'HOST': '127.0.0.1', # Host MySQL di XAMPP (localhost)
+        'PORT': '3306',
     }
 }
 
@@ -121,3 +129,13 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STATIC_URL = 'static/'
+# STATICFILES_DIRS = [BASE_DIR / 'static']
+
+STATIC_ROOT = BASE_DIR / "staticfiles"# Folder yang digunakan saat production (dikumpulkan dari semua apps)
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
+AUTH_USER_MODEL = 'main_app.CustomUser'
