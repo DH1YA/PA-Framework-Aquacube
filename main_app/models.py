@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ('customer', 'Customer'),
         ('agent', 'Agent'),
     )
-    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='customer')
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='CUSTOMER')
     phone = models.CharField(max_length=15, blank=True)
     address = models.TextField(blank=True)
 
@@ -21,6 +21,8 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
+        if self.user_type: 
+          self.user_type = self.user_type.upper()
         # Pastikan pengguna masuk grup sesuai tipe user
         super().save(*args, **kwargs)
         group, created = Group.objects.get_or_create(name=self.user_type)
@@ -134,3 +136,10 @@ def approve_agent_application(sender, instance, **kwargs):
         user.company_name = instance.company_name
         user.company_address = instance.company_address
         user.save()
+        
+@receiver(post_save, sender=CustomUser)
+def add_user_to_agent_group(sender, instance, **kwargs):
+    if instance.user_type == 'AGENT':
+        group, created = Group.objects.get_or_create(name='AGENT')
+        if not instance.groups.filter(name='AGENT').exists():
+            instance.groups.add(group)

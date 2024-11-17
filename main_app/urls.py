@@ -9,6 +9,6 @@ urlpatterns = [
     path('agent_home', views.agent_home, name='agent_home'),
     # path('signin', views.signin, name='signin'),
     path('login', views.login, name='login'),
-    path('signup', views.signup, name='signup'),
+    path('signup', views.signup_view, name='signup'),
     
 ]
