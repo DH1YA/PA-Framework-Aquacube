@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ('customer', 'Customer'),
         ('agent', 'Agent'),
     )
-    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='CUSTOMER')
+    user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='Customer')
     phone = models.CharField(max_length=15, blank=True)
     address = models.TextField(blank=True)
 

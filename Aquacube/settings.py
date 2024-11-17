@@ -139,3 +139,6 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 AUTH_USER_MODEL = 'main_app.CustomUser'
+# Login URL dan Redirect
+LOGIN_URL = 'login'
+LOGOUT_REDIRECT_URL = 'home'
