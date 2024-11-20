@@ -25,7 +25,13 @@ urlpatterns = [
     path('agent', views.customer_agent),
     path('signin', views.customer_signin),
     path('signup', views.customer_signup),
+    path('contact', views.customer_contact),
+    path('about', views.customer_about),
+    path('detail/product', views.customer_detail),
 
     path('home/agent', views.agent_home),
     path('product/agent', views.agent_product),
+    path('contact/agent', views.agent_contact),
+    path('about/agent', views.agent_about),
+    path('detail/product/agent', views.agent_detail),
 ]

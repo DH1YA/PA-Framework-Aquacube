@@ -19,8 +19,26 @@ def customer_signin(request):
 def customer_signup(request):
     return render(request, 'dashboard_customer/signup.html')
 
+def customer_contact(request):
+    return render(request, 'dashboard_customer/contact.html')
+
+def customer_about(request):
+    return render(request, 'dashboard_customer/about.html')
+
+def customer_detail(request):
+    return render(request, 'dashboard_customer/detail.html')
+
 def agent_home(request):
     return render(request, 'dashboard_agent/homepage.html')
 
 def agent_product(request):
     return render(request, 'dashboard_agent/product.html')
+
+def agent_contact(request):
+    return render(request, 'dashboard_agent/contact.html')
+
+def agent_about(request):
+    return render(request, 'dashboard_agent/about.html')
+
+def agent_detail(request):
+    return render(request, 'dashboard_agent/detail.html')
