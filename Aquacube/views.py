@@ -28,6 +28,12 @@ def customer_about(request):
 def customer_detail(request):
     return render(request, 'dashboard_customer/detail.html')
 
+def customer_order(request):
+    return render(request, 'dashboard_customer/order.html')
+
+def customer_pay(request):
+    return render(request, 'dashboard_customer/pay.html')
+
 def agent_home(request):
     return render(request, 'dashboard_agent/homepage.html')
 
@@ -42,3 +48,9 @@ def agent_about(request):
 
 def agent_detail(request):
     return render(request, 'dashboard_agent/detail.html')
+
+def agent_order(request):
+    return render(request, 'dashboard_agent/order.html')
+
+def agent_pay(request):
+    return render(request, 'dashboard_agent/pay.html')

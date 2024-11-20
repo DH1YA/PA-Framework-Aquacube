@@ -28,10 +28,14 @@ urlpatterns = [
     path('contact', views.customer_contact),
     path('about', views.customer_about),
     path('detail/product', views.customer_detail),
+    path('order', views.customer_order),
+    path('pay', views.customer_pay),
 
     path('home/agent', views.agent_home),
     path('product/agent', views.agent_product),
     path('contact/agent', views.agent_contact),
     path('about/agent', views.agent_about),
     path('detail/product/agent', views.agent_detail),
+    path('order/agent', views.agent_order),
+    path('pay/agent', views.agent_pay),
 ]
