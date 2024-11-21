@@ -142,3 +142,12 @@ AUTH_USER_MODEL = 'main_app.CustomUser'
 # Login URL dan Redirect
 LOGIN_URL = 'login'
 LOGOUT_REDIRECT_URL = 'home'
+
+#email
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'dindhana12@gmail.com'  # Replace with your email
+EMAIL_HOST_PASSWORD = 'fhrr ciea chck pppu'  # Replace with your email's password
+

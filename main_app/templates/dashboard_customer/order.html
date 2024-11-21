@@ -1,0 +1,36 @@
+{% extends "dashboard_customer/layout.html" %}
+{% load static %}
+{% block title %}Order{% endblock %}
+
+{% block content %}
+<section class="py-5 order" id="order">
+    <div class="container con-detail px-4 px-lg-5 my-5">
+        <h2>Ordering</h2>
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6">
+                <div class="small text-category mb-1 mt-5"><strong>Status: </strong> Processing</div>
+                <h1 class="display-5 fw-bolder">Infuse Water</h1>
+                <div class="fs-5 mb-5">
+                    <span><strong>Price: </strong> IDR. 18,000</span>
+                </div>
+                <div class="small text-stock mb-1"><strong>Quantity: </strong> 2</div>
+                <div class="small text-stock mb-1"><strong>Total: </strong> IDR. 36,000 </div>
+                <div class="d-flex mt-5">
+                    <a href="/pay">
+                        <button class="btn btn-order flex-shrink-0 me-3" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Pay Now
+                        </button>
+                    </a>
+                    <a href="">
+                        <button class="btn btn-cart flex-shrink-0" type="button">
+                            <i class="bi-cart-fill me-1"></i>
+                            Add to cart
+                        </button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -143,3 +143,4 @@ def add_user_to_agent_group(sender, instance, **kwargs):
         group, created = Group.objects.get_or_create(name='AGENT')
         if not instance.groups.filter(name='AGENT').exists():
             instance.groups.add(group)
+            
