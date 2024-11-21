@@ -47,6 +47,18 @@
   color: var(--color-white);
   font-size: 16px;
 }
+.btn-cart-page {
+  color: var(--color-black);
+  font-weight: bold;
+  border-radius: 10px;
+  border-color: var(--color-black);
+  width: 120px;
+  height: 50px;
+  font-size: 16px;
+}
+.btn-cart-page:hover{
+  border-color: var(--color-darkblue);
+}
 
 /* BODY SECTION */
 body{
@@ -54,32 +66,80 @@ body{
 }
 
 /* FOOTER SECTION */
-.foot{
-  /* background-color: #C7EEFA; */
-  background: var(--color-white);
-}
-.foot h5{
+.footer {
   color: var(--color-black);
-  font-weight: bold;
+  background-color: var(--color-white);
+  font-size: 14px;
+  padding-bottom: 50px;
+  position: relative;
+}
+.footer .footer-top {
+  padding-top: 50px;
+}
+.footer h4 {
   font-size: 20px;
-}
-.foot img{
-  width: 20px;
-}
-.foot p{
-  color: var(--color-black);
-  font-weight: 500;
-}
-.foot li a{
-  color: black;
-  font-weight: 500;
-}
-.foot a{
-  color: black;
-  font-weight: 500;
-}
-.foot h5{
+  font-weight: bold;
+  position: relative;
+  padding-bottom: 12px;
   color: var(--color-darkblue);
+}
+.footer .footer-links {
+  margin-bottom: 30px;
+}
+.footer .footer-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.footer .footer-links ul i {
+  margin-right: 3px;
+  font-size: 12px;
+  line-height: 0;
+  color: var(--color-black);
+}
+.footer .footer-links ul li {
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+}
+.footer .footer-links ul li:first-child {
+  padding-top: 0;
+}
+.footer .footer-links ul a {
+  display: inline-block;
+  color: var(--color-black);
+  line-height: 1;
+}
+.footer .footer-contact p {
+  margin-bottom: 5px;
+}
+.footer .social-links i {
+  background-color: var(--color-darkblue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 20px;
+  border-radius: 50%;
+  border-color: var(--color-darkblue);
+  color: var(--color-white);
+  margin-right: 10px;
+}
+.footer .social-links i:hover {
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+}
+.footer .copyright {
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+.footer .copyright p {
+  margin-bottom: 0;
+}
+.footer .credits {
+  margin-top: 6px;
+  font-size: 13px;
 }
 
 /* HERO SECTION */
@@ -303,7 +363,7 @@ height: 1050px;
   height: 450px;
   border-radius: 10px;
 }
-.card-product .btn-product-Buy{
+.card-product .btn-product-Detail{
   background-color: var(--color-black);
   color: var(--color-white);
   width: 100px;
@@ -312,7 +372,7 @@ height: 1050px;
   border-color: var(--color-black);
   font-weight: bold;
 }
-.card-product .btn-product-Buy:hover{
+.card-product .btn-product-Detail:hover{
   background-color: var(--color-darkblue);
   color: var(--color-white);
   width: 100px;
@@ -348,7 +408,7 @@ height: 1050px;
   border-radius: 10px;
   margin-top: 100px;
 }
-.card-product-page .btn-product-Buy-page{
+.card-product-page .btn-product-Detail-page{
   background-color: var(--color-black);
   color: var(--color-white);
   width: 100px;
@@ -357,7 +417,7 @@ height: 1050px;
   border-color: var(--color-black);
   font-weight: bold;
 }
-.card-product-page .btn-product-Buy-page:hover{
+.card-product-page .btn-product-Detail-page:hover{
   background-color: var(--color-darkblue);
   color: var(--color-white);
   width: 100px;
@@ -385,13 +445,19 @@ height: 1050px;
   font-size: 18px;
   font-weight: 600;
 }
-/* .card-product-page:hover h3 p{
-  color: var(--color-darkblue);
-} */
 
 /* form page */
-.form-page {
+.sec-agent {
   margin-top: 150px;
+}
+.sec-agent h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+  font-size: 50px;
+}
+.sec-agent label{
+  color: var(--color-black);
+  font-weight: 500;
 }
 .btn-submit-agent {
   background-color: var(--color-darkblue);
@@ -405,11 +471,7 @@ height: 1050px;
 .btn-submit-agent:hover {
   background-color: var(--color-black);
   color: var(--color-white);
-  width: 200px;
-  height: 50px;
-  border-radius: 10px;
   border-color: var(--color-black);
-  font-weight: bold;
 }
 
 /* SIGN IN PAGE */
@@ -511,3 +573,273 @@ text-align: center;
     border-color: var(--color-black);
     font-weight: bold;
   }
+
+  /* CONTACT PAGE */
+.contact{
+  margin-top: 140px;
+}
+.contact .info-wrap {
+  background-color: var(--color-white);
+  box-shadow: 0px 0px 20px var(--color-darkblue);
+  padding: 30px;
+  height: 100%;
+}
+.contact h2{
+  font-weight: bold;
+  color: var(--color-darkblue);
+  font-size: 50px;
+}
+.contact .info-item p{
+  font-weight: 500;
+}
+.contact .info-item {
+  margin-bottom: 40px;
+}
+.contact .info-item i {
+  font-size: 20px;
+  color: var(--color-black);
+  background: var(--color-dayblue);
+  width: 44px;
+  height: 44px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50px;
+  margin-right: 15px;
+}
+.contact .info-item:hover i:hover{
+  background: var(--color-darkblue);
+}
+.contact .info-item h3 {
+  padding: 0;
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  color: var(--color-darkblue);
+}
+.contact .info-item p {
+  padding: 0;
+  margin-bottom: 0;
+  font-size: 14px;
+}
+.contact .php-email-form {
+  height: 100%;
+  padding: 30px;
+  box-shadow: 0px 0px 20px var(--color-darkblue);
+}
+.contact .php-email-form label{
+  color: var(--color-darkblue);
+  font-weight: bold;
+}
+.contact .php-email-form input[type=text],
+.contact .php-email-form input[type=email],
+.contact .php-email-form textarea {
+  font-size: 14px;
+  padding: 10px 15px;
+  box-shadow: none;
+  border-radius: 0;
+  color: var(--color-black);
+}
+.contact .php-email-form input[type=text]:focus,
+.contact .php-email-form input[type=email]:focus,
+.contact .php-email-form textarea:focus {
+  border-color: var(--color-darkblue);
+}
+.contact .php-email-form button[type=submit] {
+  color: var(--color-white);
+  background: var(--color-darkblue);
+  width: 200px;
+  height: 50px;
+  padding: 10px 30px;
+  transition: 0.4s;
+  border-radius: 10px;
+  font-weight: 500;
+}
+.contact .php-email-form button[type=submit]:hover {
+  background: var(--color-black);
+}
+
+/* DETAIL PAGE */
+.con-detail .text-category {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-black);
+}
+.con-detail h1 {
+  font-weight: bold;
+  font-size: 50px;
+  color: var(--color-darkblue);
+}
+.con-detail span {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-black);
+}
+.con-detail .text-stock {
+  font-weight: 500;
+  font-size: 20px;
+  color: var(--color-black);
+}
+.con-detail p {
+  font-weight: 500;
+  color: var(--color-black);
+  font-size: 20px;
+  text-align: justify;
+}
+.con-detail .btn-minus-plus {
+  border-radius: 5px;
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+.con-detail .btn-minus-plus:hover{
+  border-color: var(--color-darkblue);
+  color: var(--color-darkblue);
+}
+.con-detail input{
+  border-radius: 5px;
+  border-color: var(--color-black);
+  color: var(--color-black);
+}
+.con-detail .btn-order{
+  border-radius: 5px;
+  border-color: var(--color-darkblue);
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  font-weight: 500;
+  width: 200px;
+  height: 50px;
+}
+.con-detail .btn-order:hover{
+  border-color: var(--color-black);
+  background-color: var(--color-black);
+}
+.con-detail .btn-cart{
+  border-radius: 5px;
+  border-color: var(--color-darkblue);
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  font-weight: 500;
+  width: 200px;
+  height: 50px;
+}
+.con-detail .btn-cart:hover{
+  border-color: var(--color-black);
+  background-color: var(--color-black);
+}
+
+/* ABOUT PAGE */
+.about{
+  margin-top: 150px;
+}
+.about h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+  font-size: 50px;
+}
+.about p{
+  color: var(--color-black);
+  font-weight: 500;
+  text-align: justify;
+  line-height: 2rem;
+}
+.about .point-text{
+  color: var(--color-black);
+  font-weight: 500;
+  text-align: justify;
+  line-height: 2rem;
+}
+.about .point-text:hover{
+  color: var(--color-darkblue);
+}
+.team h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+  font-size: 50px;
+}
+.team .team-member {
+  background-color: var(--surface-color);
+  box-shadow: 0px 0px 20px var(--color-darkblue);
+  position: relative;
+  border-radius: 5px;
+  transition: 0.5s;
+  padding: 30px;
+  height: 100%;
+  margin-top: 20px;
+}
+.team .team-member .pic {
+  overflow: hidden;
+  width: 200px;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+.team .team-member:hover {
+  transform: translateY(-10px);
+}
+.team .team-member .member-info {
+  padding-left: 30px;
+}
+.team .team-member h4 {
+  margin-top: 30px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  font-size: 20px;
+}
+.team .team-member span {
+  display: block;
+  font-size: 15px;
+  padding-bottom: 10px;
+  position: relative;
+  font-weight: 500;
+}
+.team .team-member .social {
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  width: 100%;
+}
+.team .team-member .social a {
+  background: var(--color-darkblue);
+  transition: ease-in-out 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50px;
+  width: 36px;
+  height: 36px;
+}
+.team .team-member .social a i {
+  color: var(--color-white);
+  font-size: 16px;
+  margin: 0 2px;
+}
+.team .team-member .social a:hover {
+  background: var(--color-black);
+}
+.team .team-member .social a:hover i {
+  color: var(--color-white);
+}
+
+.team .team-member .social a+a {
+  margin-left: 10px;
+}
+
+/* ORDER PAGE */
+.order{
+  margin-top: 50px;
+}
+.order h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+  font-size: 50px;
+}
+
+/* PAY PAGE */
+.pay{
+  margin-top: 50px;
+}
+.con-pay h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+  font-size: 50px;
+}

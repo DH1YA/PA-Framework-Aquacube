@@ -1,47 +1,55 @@
 {% extends "dashboard_customer/layout.html" %}
 {% load static %}
-{% block title %}Agent - Customer{% endblock %}
+{% block title %}Agent{% endblock %}
 
 {% block content %}
-<section id="agent">
+<section id="agent" class="sec-agent">
     <div class="container">
-        <form class=" form-page">
+      <h2>Agent Form</h2>
+        <form class=" form-page mt-3">
             <div class="row mb-4">
-              <div class="col">
-                <div data-mdb-input-init class="form-outline">
-                  <input type="text" id="form6Example1" class="form-control" />
-                  <label class="form-label" for="form6Example1">Username</label>
-                </div>
+              <div class="col-md-6">
+                <label for="username-field" class="pb-2">Username</label>
+                <input type="text" name="username" id="username-field" class="form-control" required="">
               </div>
-              <div class="col">
-                <div data-mdb-input-init class="form-outline">
-                    <input type="password" id="form6Example7" class="form-control"/>
-                    <label class="form-label" for="form6Example7">Password</label>
-                  </div>
+
+              <div class="col-md-6">
+                <label for="password-field" class="pb-2">Password</label>
+                <input type="password" name="password" id="password-field" class="form-control" required="">
               </div>
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="form6Example3" class="form-control" />
-              <label class="form-label" for="form6Example3">Name</label>
+              <div class="col">
+                <label for="name-field" class="pb-2">Name</label>
+                <input type="text" name="name" id="name-field" class="form-control" required="">
+              </div>
             </div>
 
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="text" id="form6Example4" class="form-control" />
-              <label class="form-label" for="form6Example4">Address</label>
+              <div class="col">
+                <label for="address-field" class="pb-2">Address</label>
+                <input type="text" name="address" id="address-field" class="form-control" required="">
+              </div>
             </div>
           
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="email" id="form6Example5" class="form-control" />
-              <label class="form-label" for="form6Example5">Email Adress</label>
+              <div class="col">
+                <label for="email-field" class="pb-2">Email</label>
+                <input type="email" name="email" id="email-field" class="form-control" required="">
+              </div>
             </div>
           
             <div data-mdb-input-init class="form-outline mb-4">
-              <input type="number" id="form6Example6" class="form-control" />
-              <label class="form-label" for="form6Example6">Phone Number</label>
+              <div class="col">
+                <label for="phone-number-field" class="pb-2">Phone Number</label>
+                <input type="text" name="phone-number" id="phone-number-field" class="form-control" required="">
+              </div>
             </div>
 
-            <button data-mdb-ripple-init type="button" class="btn btn-submit-agent btn-block mb-4">Submit</button>
+            <div class="d-flex justify-content-center">
+              <button data-mdb-ripple-init type="button" class="btn btn-submit-agent btn-block mb-4 ">Submit</button>
+            </div>
           </form>
     </div>
 </section>
