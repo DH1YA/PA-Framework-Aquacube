@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import login
-from .forms import SignUpForm
+from django.contrib.auth import login, authenticate, get_user_model
+from .forms import SignUpForm, CustomAuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
@@ -91,8 +91,9 @@ def agent_pay(request):
   return render(request, 'dashboard_agent/pay.html')
 #================= registration ===============
 def login_view(request):
+    User = get_user_model() #get_user_model untuk mengambil model autentikasi cutom pada setting.py
     if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
+        form = CustomAuthenticationForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
@@ -104,9 +105,20 @@ def login_view(request):
             else:
                 return redirect('cust_home')  # dashboard cutomer
         else:
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+
+            # Cek apakah username ada di database
+            if not User.objects.filter(username=username).exists():
+                messages.error(request, "Username tidak ditemukan.")
+            else:
+                # Jika username ada, berarti password salah
+                user = authenticate(request, username=username, password=password)
+                if user is None:
+                    messages.error(request, "Password salah.")
             messages.error(request, 'Invalid username or password')
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 def signup_view(request):
