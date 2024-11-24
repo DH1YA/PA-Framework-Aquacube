@@ -42,10 +42,10 @@
           <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav mx-auto">
               <li class="nav-item ms-0 ms-md-3 mx-2">
-                <a class="nav-link fw-bold" aria-current="page" href="/">Home</a>
+                <a class="nav-link fw-bold" aria-current="page" href="{% url 'home'%}">Home</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
-                <a class="nav-link fw-bold" href="/about">About Us</a>
+                <a class="nav-link fw-bold" href="{% url 'about'%}">About Us</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
                 <a class="nav-link fw-bold" href="/become agent">Agent</a>
@@ -58,19 +58,25 @@
               </li>
             </ul>
             <div>
-              <a href="/signup">
-                <button class="btn btn-signup mx-2">Sign Up</button>
-              </a>
-              <a href="/login">
-                <button class="btn btn-signin">Sign In</button>
-              </a>
+              {% if request.user.is_authenticated %}
               <!-- HANYA DITAMPILKAN SAAT SUDAH SIGN IN -->
-              <a href="">
+              <a href="{% url 'logout'%}">
+                <button class="btn btn-signin">Sign out <output></output></button>
+              </a>
+              <a href="{% url 'cart_summary'%}">
                 <button class="btn btn-cart-page flex-shrink-0" type="button">
                   <i class="bi-cart-fill me-1"></i>
-                  Cart (0)
+                  Cart ({{ cart_item_count }})
               </button>
               </a>
+              {% else %}
+              <a href="{% url 'signup'%}">
+                <button class="btn btn-signup mx-2">Sign Up</button>
+              </a>
+              <a href="{% url 'login'%}">
+                <button class="btn btn-signin">Sign In</button>
+              </a>
+              {% endif %}
             </div>
           </div>
         </div>

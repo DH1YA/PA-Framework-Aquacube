@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth import login, authenticate, get_user_model
+from django.contrib.auth import login, authenticate, get_user_model, logout
 from .forms import SignUpForm, CustomAuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
@@ -10,14 +10,14 @@ from django.http import JsonResponse
 from .models import Cart, CartItem, Product
 from django.contrib.auth.decorators import login_required
 # Create your views here.
+def about(request): 
+  return render(request, 'about.html')
+
 def cust_home(request): 
   return render(request, 'dashboard_customer/homepage.html')
 
 def cust_agentform(request): 
   return render(request, 'dashboard_customer/agent.html')
-
-def cust_about(request): 
-  return render(request, 'dashboard_customer/about.html')
 
 def cust_contact(request):
     if request.method == 'POST':
@@ -48,9 +48,6 @@ def cust_pay(request):
 #================== agent =======================
 def agent_home(request): 
   return render(request, 'dashboard_agent/homepage.html')
-
-def agent_about(request): 
-  return render(request, 'dashboard_agent/about.html')
 
 def agent_contact(request):
     if request.method == 'POST':
@@ -95,7 +92,7 @@ def login_view(request):
             elif user.groups.filter(name='AGENT'):
                 return redirect('agent_home')  # dashboard agent
             else:
-                return redirect('cust_home')  # dashboard cutomer
+                return redirect('home')  # dashboard cutomer
         else:
             username = request.POST.get('username')
             password = request.POST.get('password')
@@ -112,6 +109,11 @@ def login_view(request):
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
+  
+def logout_view(request):
+	logout(request)
+	messages.success(request, ("You have been logged out...Thanks for stopping by..."))
+	return redirect('home')
 
 def signup_view(request):
     if request.method == 'POST':
@@ -136,6 +138,44 @@ def cust_productlist(request):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)  # Ambil produk berdasarkan slug
     return render(request, 'dashboard_customer/detail.html', {'product': product})
+  
+@login_required
+def cart_summary(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_items = cart.cartitem_set.all()
+        total_price = cart.get_total_price()
+    except Cart.DoesNotExist:
+        cart_items = []
+        total_price = 0
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+    return render(request, 'shopping/cart_summary.html', context)
+
+@login_required
+def update_cart_item(request, item_id):
+    if request.method == 'POST':
+        cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+        quantity = int(request.POST.get('quantity', 1))
+        
+        if quantity > 0 and quantity <= cart_item.product.stock:
+            cart_item.quantity = quantity
+            cart_item.save()
+            messages.success(request, 'Cart updated successfully')
+        else:
+            messages.error(request, 'Invalid quantity')
+    
+    return redirect('cart_summary')
+
+@login_required
+def remove_cart_item(request, item_id):
+    cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
+    cart_item.delete()
+    messages.success(request, 'Item removed from cart')
+    return redirect('cart_summary')
   
 @login_required
 def add_to_cart(request):
