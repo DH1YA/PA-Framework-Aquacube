@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, get_user_model
 from .forms import SignUpForm, CustomAuthenticationForm
 from django.contrib.auth.decorators import login_required
@@ -6,6 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.contrib import messages
+from .models import Product
 
 # Create your views here.
 def cust_home(request): 
@@ -13,9 +14,6 @@ def cust_home(request):
 
 def cust_agentform(request): 
   return render(request, 'dashboard_customer/agent.html')
-
-def cust_productlist(request): 
-  return render(request, 'dashboard_customer/product.html')
 
 def cust_about(request): 
   return render(request, 'dashboard_customer/about.html')
@@ -41,19 +39,12 @@ def cust_contact(request):
     
     return render(request, 'dashboard_customer/contact.html')
 
-
-def cust_detail(request): 
-  return render(request, 'dashboard_customer/detail.html')
-
 def cust_order(request): 
   return render(request, 'dashboard_customer/order.html')
 
 def cust_pay(request): 
   return render(request, 'dashboard_customer/pay.html')
 #================== agent =======================
-def agent_productlist(request): 
-  return render(request, 'dashboard_agent/product.html')
-
 def agent_home(request): 
   return render(request, 'dashboard_agent/homepage.html')
 
@@ -81,8 +72,8 @@ def agent_contact(request):
     
     return render(request, 'dashboard_agent/contact.html')
 
-def agent_detail(request): 
-  return render(request, 'dashboard_agent/detail.html')
+# def agent_detail(request): 
+#   return render(request, 'dashboard_agent/detail.html')
 
 def agent_order(request): 
   return render(request, 'dashboard_agent/order.html')
@@ -116,7 +107,7 @@ def login_view(request):
                 user = authenticate(request, username=username, password=password)
                 if user is None:
                     messages.error(request, "Password salah.")
-            messages.error(request, 'Invalid username or password')
+            messages.error(request, 'Silahkan periksa kembali username atau password')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -131,4 +122,17 @@ def signup_view(request):
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
+
+# ============== cart and product ===========================
+def agent_productlist(request): 
+  products = Product.objects.all()
+  return render(request, 'dashboard_agent/product.html', {'products':products})
+
+def cust_productlist(request): 
+  products = Product.objects.filter(user_type='customer')
+  return render(request, 'dashboard_customer/product.html', {'products':products})
+
+def product_detail(request, slug):
+    product = get_object_or_404(Product, slug=slug)  # Ambil produk berdasarkan slug
+    return render(request, 'dashboard_customer/detail.html', {'product': product})
 

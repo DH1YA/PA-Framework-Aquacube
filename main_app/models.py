@@ -3,6 +3,8 @@ from django.db import models
 # Create your models here.
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
+from django.utils.text import slugify
+
 
 
 class CustomUser(AbstractUser):
@@ -40,18 +42,29 @@ class Category(models.Model):
         verbose_name_plural = 'Categories'
 
 class Product(models.Model):
-    USER_TYPE_CHOICES = ( ('agent', 'Agent'), ('customer', 'Customer'), )
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    USER_TYPE_CHOICES = (('agent', 'Agent'), ('customer', 'Customer'),)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='customer')
     name = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, blank=True, null=True)  # Tambahkan slug
     description = models.TextField()
     image = models.ImageField(upload_to='products/')
     price = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            base_slug = slugify(self.name)
+            slug = base_slug
+            count = 1
+            while Product.objects.filter(slug=slug).exists():
+                slug = f"{base_slug}-{count}"
+                count += 1
+            self.slug = slug
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.name
 
@@ -127,6 +140,7 @@ class AgentApplication(models.Model):
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+#signal untuk mengupdate status dan type user setelah form agent diverifikasi
 @receiver(post_save, sender=AgentApplication)
 def approve_agent_application(sender, instance, **kwargs):
     if instance.status == 'approved':
@@ -136,11 +150,18 @@ def approve_agent_application(sender, instance, **kwargs):
         user.company_name = instance.company_name
         user.company_address = instance.company_address
         user.save()
-        
+
+#signal untuk memasukkan user ke grup AGENT      
 @receiver(post_save, sender=CustomUser)
 def add_user_to_agent_group(sender, instance, **kwargs):
     if instance.user_type == 'AGENT':
         group, created = Group.objects.get_or_create(name='AGENT')
         if not instance.groups.filter(name='AGENT').exists():
             instance.groups.add(group)
-            
+
+# Signal untuk membuat Cart otomatis saat CustomUser dibuat
+@receiver(post_save, sender=CustomUser)
+def create_cart_for_new_user(sender, instance, created, **kwargs):
+    if created:
+        # Jika user baru dibuat, buatkan Cart baru yang terkait dengan user tersebut
+        Cart.objects.get_or_create(user=instance)            

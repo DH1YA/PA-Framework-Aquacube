@@ -6,70 +6,28 @@
 <section id="product" class="mt-5">
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="d-flex flex-wrap justify-content-center mx-auto">
-                <div class="card-product-page me-4 position-relative">
-                    <img src="{% static 'images/product1.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Bootle Water</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
+            {% if products %}
+                <div class="d-flex flex-wrap justify-content-center mx-auto">
+                    {% for product in products %}
+                        <div class="card-product-page me-4 position-relative">
+                            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                            <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
+                                <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
+                                    <h3>{{ product.name }}</h3>
+                                    <a href="{% url 'product_detail' product.slug %}">
+                                        <button class="btn-product-Detail-page">Details</button>
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    {% endfor %}
                 </div>
-
-                <div class="card-product-page me-4 position-relative">
-                    <img src="{% static 'images/product2.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Ice Package</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
-                        </div>
-                    </div>
+            {% else %}
+                <div class="text-center my-5">
+                    <h3>No products available</h3>
+                    <p class="text-muted">We are currently out of stock. Please check back later!</p>
                 </div>
-
-                <div class="card-product-page me-4 position-relative">
-                    <img src="{% static 'images/product3.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Ice Cubes</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
-                    
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-product-page me-4 position-relative">
-                    <img src="{% static 'images/product4.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Water Gallon</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
-                    
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-product-page me-4 position-relative">
-                    <img src="{% static 'images/product5.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Infuse Water</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card-product-page me-3 position-relative">
-                    <img src="{% static 'images/product6.png' %}" alt="">
-                    <div class="overlay position-absolute top-0 bottom-0 start-0 end-0">
-                        <div class="card-text-product-page position-absolute top-50 start-50 translate-middle text-center mt-4">
-                            <h3>Ice Bucket</h3>
-                            <a href="/detail"><button class="btn-product-Detail-page">Detail</button></a>
-                    
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {% endif %}
         </div>
     </div>
 </section>
