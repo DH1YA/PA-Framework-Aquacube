@@ -6,8 +6,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.contrib import messages
-from .models import Product
-
+from django.http import JsonResponse
+from .models import Cart, CartItem, Product
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 def cust_home(request): 
   return render(request, 'dashboard_customer/homepage.html')
@@ -135,4 +136,38 @@ def cust_productlist(request):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)  # Ambil produk berdasarkan slug
     return render(request, 'dashboard_customer/detail.html', {'product': product})
+  
+@login_required
+def add_to_cart(request):
+    if request.method == "POST":
+        product_id = request.POST.get("product_id")
+        quantity = int(request.POST.get("quantity", 1))  # Default quantity = 1
+
+        # Ambil produk berdasarkan ID
+        product = get_object_or_404(Product, id=product_id)
+
+        # Cek stok produk
+        if product.stock < quantity:
+            return JsonResponse({"status": "error", "message": "Insufficient stock!"}, status=400)
+
+        # Ambil atau buat keranjang untuk user
+        cart, created = Cart.objects.get_or_create(user=request.user)
+
+        # Periksa apakah produk sudah ada di keranjang
+        cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+
+        if not created:
+            cart_item.quantity += quantity  # Tambahkan quantity jika sudah ada
+        else:
+            cart_item.quantity = quantity  # Set quantity jika baru ditambahkan
+
+        cart_item.save()
+
+        # Kurangi stok produk
+        product.stock -= quantity
+        product.save()
+
+        return JsonResponse({"status": "success", "message": "Product added to cart!"})
+
+    return JsonResponse({"status": "error", "message": "Invalid request!"}, status=400)
 

@@ -20,4 +20,6 @@ urlpatterns = [
     # path('agent_detail', views.agent_detail, name='agent_detail'),
     path('agent_order', views.agent_order, name='agent_order'),
     path('agent_pay', views.agent_pay, name='agent_pay'),
+    # ================ cart ======================
+    path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
 ]
