@@ -45,7 +45,7 @@
                 <a class="nav-link fw-bold" aria-current="page" href="/agent_home">Home</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
-                <a class="nav-link fw-bold" href="agent_about">About Us</a>
+                <a class="nav-link fw-bold" href="/agent_about">About Us</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
                 <a class="nav-link fw-bold" href="/agent_product">Product</a>
@@ -54,6 +54,30 @@
                 <a class="nav-link fw-bold" href="/agent_contact">Contact</a>
               </li>
             </ul>
+            <div>
+              <a href="{% url 'listpay_agent'%}">
+                <button class="btn btn-receipt flex-shrink-0" type="button">
+                  <i class="fas fa-wallet"></i>
+                </button>
+              </a>
+              <a href="{% url 'cart_summary_agent'%}">
+                <button class="btn btn-cart-page flex-shrink-0" type="button">
+                  <i class="bi-cart-fill me-1"></i>
+                  ({{ cart_item_count }})
+              </button>
+              </a>
+              <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <button class="btn-profile">
+                    <i class="fas fa-user"></i>
+                </button>
+              </a>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="{% url 'agent_profile'%}">Profile</a></li>
+                  <li><a class="dropdown-item" href="{% url 'logout'%}">Logout
+                    <i class="fas fa-sign-out-alt flex-shrink-0"></i>
+                  </a></li>
+                </ul>
+            </div>
           </div>
         </div>
       </nav>
@@ -127,6 +151,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js" integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.min.js"></script>
 </body>
 </html>

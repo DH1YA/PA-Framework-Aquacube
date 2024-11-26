@@ -1,0 +1,80 @@
+{% extends 'dashboard_customer/layout.html' %}
+{% block title %}List of Payment{% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">List of Payment</h2>
+
+  <div class="card listpay">
+      <div class="card-body">
+          <div class="table-responsive">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                          <th>Order ID</th>
+                          <th>Transfer Receipt</th>
+                          <th>Price</th>
+                          <th>Quantity</th>
+                          <th>Subtotal</th>
+                          <th>Status</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                        <td>ASD7237938</td>
+                          <td>
+                              <div class="d-flex align-items-center img-listpay">
+                                <input type="file" id="file-upload" name="file" class="form-control form-control-sm" accept="image/*, .pdf, .docx">
+                                <img src="{% static 'images/product1.png' %}" alt="" 
+                                class="img-thumbnail me-3" style="max-width: 80px;">
+                              </div>
+                          </td>
+                          <td>Rp 12000</td>
+                          <td>2</td>
+                          <td>Rp 24000</td>
+                          <td class="{% if status == 'Approved' %}text-success{% elif status == 'Pending' %}text-warning{% elif status == 'Rejected' %}text-danger{% endif %}">
+                            Approved
+                        </td>
+                      </tr>
+
+                      <tr>
+                        <td>ASD7116338</td>
+                          <td>
+                              <div class="d-flex align-items-center img-listpay">
+                                <input type="file" id="file-upload" name="file" class="form-control form-control-sm" accept="image/*, .pdf, .docx">
+                                <img src="{% static 'images/product3.png' %}" alt="" 
+                                class="img-thumbnail me-3" style="max-width: 80px;">
+                              </div>
+                          </td>
+                          <td>Rp 20000</td>
+                          <td>4</td>
+                          <td>Rp 80000</td>
+                          <td class="{% if status == 'Approved' %}text-success{% elif status == 'Pending' %}text-warning{% elif status == 'Rejected' %}text-danger{% endif %}">
+                            Pending
+                        </td>                        
+                      </tr>
+
+                      <tr>
+                        <td>ASD7116338</td>
+                          <td>
+                              <div class="d-flex align-items-center img-listpay">
+                                <input type="file" id="file-upload" name="file" class="form-control form-control-sm" accept="image/*, .pdf, .docx">
+                                <img src="{% static 'images/product3.png' %}" alt="" 
+                                class="img-thumbnail me-3" style="max-width: 80px;">
+                              </div>
+                          </td>
+                          <td>Rp 20000</td>
+                          <td>4</td>
+                          <td>Rp 80000</td>
+                          <td class="{% if status == 'Approved' %}text-success{% elif status == 'Pending' %}text-warning{% elif status == 'Rejected' %}text-danger{% endif %}">
+                            Rejected
+                        </td>                        
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+</div>
+{% endblock %}

@@ -11,9 +11,11 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('logout/', views.logout_view, name='logout'),
     path('signup/', views.signup_view, name='signup'),
-    path('about/', views.about, name='about'),
+    path('about/', views.cust_about, name='about'),
+    path('agent_about/', views.agent_about, name='agent_about'),
     path('contact/', views.cust_contact, name='contact'),
     path('product_detail/<slug:slug>/', views.product_detail, name='product_detail'),
+    path('product_detail/<slug:slug>/agent', views.product_detail_agent, name='product_detail_agent'),
     path('order/', views.cust_order, name='cust_order'),
     path('pay/', views.cust_pay, name='cust_pay'),
     path('agent_contact/', views.agent_contact, name='agent_contact'),
@@ -23,7 +25,11 @@ urlpatterns = [
     # ================ cart ======================
     path('add-to-cart/', views.add_to_cart, name='add_to_cart'),
     path('cart/', views.cart_summary, name='cart_summary'),
+    path('agent_cart/', views.cart_summary_agent, name='cart_summary_agent'),
     path('cart/update/<int:item_id>/', views.update_cart_item, name='update_cart_item'),
     path('cart/remove/<int:item_id>/', views.remove_cart_item, name='remove_cart_item'),
-    
+    path('profile/', views.cust_profile, name='profile'),
+    path('agent_profile/', views.agent_profile, name='agent_profile'),
+    path('listpay/', views.cust_listpay, name='listpay'),
+    path('listpay/agent', views.agent_listpay, name='listpay_agent'),
 ]

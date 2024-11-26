@@ -1,4 +1,4 @@
-{% extends 'dashboard_customer/layout.html' %}
+{% extends 'dashboard_agent/layout.html' %}
 {% block title %}Cart Summary{% endblock %}
 {% load static %}
 
@@ -71,7 +71,7 @@
           </div>
 
           <div class="d-flex justify-content-end mt-4">
-            <button type="button" class="btn btn-back-cart create-account me-2" onclick="window.location.href='/'">Back</button>
+            <button type="button" class="btn btn-back-cart create-account me-2" onclick="window.location.href='/agent_home'">Back</button>
               <a href="" class="btn btn-checkout-cart">
                   Checkout
               </a>

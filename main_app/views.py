@@ -10,7 +10,7 @@ from django.http import JsonResponse
 from .models import Cart, CartItem, Product
 from django.contrib.auth.decorators import login_required
 # Create your views here.
-def about(request): 
+def cust_about(request): 
   return render(request, 'about.html')
 
 def cust_home(request): 
@@ -45,9 +45,18 @@ def cust_order(request):
 
 def cust_pay(request): 
   return render(request, 'dashboard_customer/pay.html')
+
+def cust_profile(request):
+    return render(request, 'dashboard_customer/profile.html')
+
+def cust_listpay(request):
+    return render(request, 'dashboard_customer/listpay.html')
 #================== agent =======================
 def agent_home(request): 
   return render(request, 'dashboard_agent/homepage.html')
+
+def agent_about(request): 
+  return render(request, 'dashboard_agent/about.html')
 
 def agent_contact(request):
     if request.method == 'POST':
@@ -78,6 +87,28 @@ def agent_order(request):
 
 def agent_pay(request): 
   return render(request, 'dashboard_agent/pay.html')
+
+def agent_profile(request):
+    return render(request, 'dashboard_agent/profile.html')
+
+def agent_listpay(request):
+    return render(request, 'dashboard_agent/listpay.html')
+
+@login_required
+def cart_summary_agent(request):
+    try:
+        cart = Cart.objects.get(user=request.user)
+        cart_items = cart.cartitem_set.all()
+        total_price = cart.get_total_price()
+    except Cart.DoesNotExist:
+        cart_items = []
+        total_price = 0
+
+    context = {
+        'cart_items': cart_items,
+        'total_price': total_price,
+    }
+    return render(request, 'shopping/cart_summary_agent.html', context)
 #================= registration ===============
 def login_view(request):
     User = get_user_model() #get_user_model untuk mengambil model autentikasi cutom pada setting.py
@@ -121,7 +152,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('cust_home')  
+            return redirect(cust_home)  
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})
@@ -138,6 +169,10 @@ def cust_productlist(request):
 def product_detail(request, slug):
     product = get_object_or_404(Product, slug=slug)  # Ambil produk berdasarkan slug
     return render(request, 'dashboard_customer/detail.html', {'product': product})
+
+def product_detail_agent(request, slug):
+    product = get_object_or_404(Product, slug=slug)  # Ambil produk berdasarkan slug
+    return render(request, 'dashboard_agent/detail.html', {'product': product})
   
 @login_required
 def cart_summary(request):
@@ -176,7 +211,7 @@ def remove_cart_item(request, item_id):
     cart_item.delete()
     messages.success(request, 'Item removed from cart')
     return redirect('cart_summary')
-  
+
 @login_required
 def add_to_cart(request):
     if request.method == "POST":
@@ -208,6 +243,7 @@ def add_to_cart(request):
         product.save()
 
         return JsonResponse({"status": "success", "message": "Product added to cart!"})
+        
 
     return JsonResponse({"status": "error", "message": "Invalid request!"}, status=400)
 
