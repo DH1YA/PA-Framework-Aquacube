@@ -795,6 +795,15 @@ text-align: center;
   border-color: var(--color-black);
   background-color: var(--color-black);
 }
+.con-detail .input-contact {
+  color: var(--color-darkblue);
+  font-weight: bold;
+}
+.con-detail input[type=number]:focus,
+.con-detail input[type=file]:focus,
+.con-detail textarea:focus {
+  border-color: var(--color-darkblue);
+}
 
 
 /* ABOUT PAGE */
@@ -1046,3 +1055,59 @@ text-align: center;
   border-color: var(--color-black);
 }
 
+/* LIST AGENT PAGE */
+.con-agent {
+  border-radius: 100px;
+}
+.con-agent .search-agent input[type=search],
+.con-agent .search-agent textarea {
+  font-size: 14px;
+  width: 90%;
+  height: 38px;
+  padding: 10px 15px;
+  box-shadow: none;
+  border-radius: 5px;
+  color: var(--color-black);
+  margin-right: 10px;
+}
+.con-agent .search-agent input[type=search]:focus,
+.con-agent .search-agent textarea:focus {
+  border-color: var(--color-darkblue);
+}
+.con-agent .btn-search-agent {
+  background-color: var(--color-darkblue);
+  color: var(--color-white);
+  font-weight: 500;
+  border-radius: 5px;
+  width: 150px;
+  height: 38px;
+}
+.con-agent .btn-search-agent i{
+  color: var(--color-white);
+  width: 20%;
+}
+.con-agent .btn-search-agent:hover{
+  background-color: var(--color-black);
+}
+.con-agent img{
+  height: 7rem;
+  width: 7rem;
+  border-color: var(--color-darkblue);
+}
+.con-agent h2{
+  color: var(--color-darkblue);
+  font-weight: bold;
+}
+.con-agent p {
+  color: var(--color-black);
+  font-weight: 300;
+}
+.con-agent ul li{
+  color: var(--color-black);
+}
+.con-agent ul li:hover{
+  color: var(--color-darkblue);
+}
+.con-agent li {
+  font-weight: 300;
+}

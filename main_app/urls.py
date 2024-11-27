@@ -13,6 +13,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('product_detail/<slug:slug>/', views.product_detail, name='product_detail'),
     path('profile/', views.profile, name='profile'),
+    path('listagent/', views.listagent, name='listagent'),
     # ================ cart and shop ======================
     path('payment/', views.payment, name='payment'),
     path('direct_order/<int:product_id>/', views.direct_order_page, name='direct_order'),
@@ -22,4 +23,5 @@ urlpatterns = [
     path('cart/update/<int:item_id>/', views.update_cart_item, name='update_cart_item'),
     path('cart/remove/<int:item_id>/', views.remove_cart_item, name='remove_cart_item'),
     path('listpay/', views.listpay, name='listpay'),
+    path('listorder/', views.listorder, name='listorder'),
 ]

@@ -41,10 +41,16 @@ def contact(request):
 
 def profile(request):
     return render(request, 'profile.html')
+
+def listorder(request):
+    return render(request, 'shopping/listorder.html')
+
+def listagent(request):
+    return render(request, 'listagent.html')
 # =============== Customer ========================
 
 def cust_agentform(request): 
-  return render(request, 'dashboard_customer/agent.html')
+  return render(request, 'agent.html')
 
   
 #================== agent =======================
