@@ -13,6 +13,7 @@ class CustomUser(AbstractUser):
         ('customer', 'Customer'),
         ('agent', 'Agent'),
     )
+    profile_image = models.ImageField(upload_to='profile_pics/', null=True, blank=True)
     user_type = models.CharField(max_length=10, choices=USER_TYPE_CHOICES, default='Customer')
     phone = models.CharField(max_length=15, blank=True)
     address = models.TextField(blank=True)

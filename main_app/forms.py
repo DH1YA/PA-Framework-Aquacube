@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.contrib.auth.forms import UserChangeForm
 
 class SignUpForm(UserCreationForm):
     class Meta:
@@ -20,6 +20,10 @@ class SignUpForm(UserCreationForm):
         self.fields['email'].widget.attrs.update({'class': 'form-control item', 'placeholder': 'Email'})
         self.fields['phone'].widget.attrs.update({'class': 'form-control item', 'placeholder': 'Phone Number'})
 
+class CustomUserChangeForm(UserChangeForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'last_name', 'email', 'address', 'phone', 'profile_image']
 
 class CustomAuthenticationForm(AuthenticationForm):
     username = forms.CharField(

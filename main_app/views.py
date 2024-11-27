@@ -10,6 +10,7 @@ from django.http import JsonResponse
 from .models import Cart, CartItem, Product,Order, OrderItem
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
+from .forms import CustomUserChangeForm
 # Create your views here.
 
 def home(request): 
@@ -39,8 +40,24 @@ def contact(request):
     
     return render(request, 'contact.html')
 
+@login_required
 def profile(request):
-    return render(request, 'profile.html')
+    user = request.user
+    
+    if request.method == 'POST':
+        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+    
+            messages.success(request, 'Your profile has been successfully updated!')
+            return redirect('profile')  
+        
+        else:
+            messages.error(request, 'There was an error updating your profile. Please try again.')
+    else:
+        form = CustomUserChangeForm(instance=user)
+
+    return render(request, 'profile.html', {'form': form, 'user': user})
 
 def listorder(request):
     return render(request, 'shopping/listorder.html')
