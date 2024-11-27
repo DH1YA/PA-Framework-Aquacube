@@ -1,5 +1,5 @@
-from django.db.models import Sum  # Tambahkan impor ini
-from .models import Cart  # Pastikan Anda mengimpor model Cart dari aplikasi Anda
+from django.db.models import Sum  
+from .models import Cart  
 
 def cart_item_count(request):
     if request.user.is_authenticated:

@@ -1,4 +1,4 @@
- {% extends "dashboard_customer/layout.html" %}
+ {% extends "layout.html" %}
 {% load static %}
 {% block title %}Detail{% endblock %}
 
@@ -9,7 +9,8 @@
             <div class="col-md-6 mt-5">
                 <img class="card-img-top mb-5 mb-md-0" src="{{ product.image.url }}" alt="{{ product.name }}" />
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 text-detail">
+                <!-- Informasi Produk -->
                 <div class="small text-category mb-1">
                     <strong>Category: </strong> {{ product.category.name }}
                 </div>
@@ -19,8 +20,9 @@
                 </div>
                 <div class="small text-stock mb-1"><strong>Stock: </strong> {{ product.stock }}</div>
                 <p class="lead">{{ product.description }}</p>
-                <!-- proses penambahan cart dan pemesanan -->
-                <form id="add-to-cart-form" method="POST" action="{% url 'add_to_cart' %}">
+            
+                <!-- Satu Input untuk Kedua Fitur -->
+                <form id="cart-order-form" method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="product_id" value="{{ product.id }}">
                     <div class="d-flex align-items-center">
@@ -28,26 +30,18 @@
                         <input type="number" name="quantity" class="form-control text-center mx-2" value="1" min="1" max="{{ product.stock }}" style="width: 60px;">
                         <button type="button" class="btn btn-minus-plus" onclick="this.previousElementSibling.stepUp()">+</button>
                     </div>
-                    <a href="/agent_order">
-                        <button class="btn btn-order flex-shrink-0 me-3" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Order Now
-                        </button>
-                    </a>
-                    <button type="submit" class="btn btn-cart flex-shrink-0 mt-3">
+                    <!-- Tombol Add to Cart -->
+                    <button type="submit" formaction="{% url 'add_to_cart' %}" class="btn btn-cart flex-shrink-0 mt-3">
                         <i class="bi-cart-fill me-1"></i>
-                        Add to cart
+                        Add to Cart
+                    </button>
+                    <!-- Tombol Order Now -->
+                    <button type="submit" formaction="{% url 'direct_order' product.id %}" class="btn btn-order flex-shrink-0 mt-3">
+                        <i class="bi-cart-check me-1"></i>
+                        Order Now
                     </button>
                 </form>
-                <!-- <div class="d-flex mt-5">
-                    <a href="#">
-                        <button class="btn btn-cart flex-shrink-0" type="button">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
-                    </a>
-                </div> -->
-            </div>
+            </div>            
         </div>
     </div>
 </section>

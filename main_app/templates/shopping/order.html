@@ -1,0 +1,86 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}Order{% endblock %}
+
+{% block content %}
+<section class="py-5 order" id="order">
+    <div class="container con-detail px-4 px-lg-5 my-5">
+        <div class="row gx-4 gx-lg-5 align-items-center">
+            <div class="col-md-6 mt-5">
+                <img class="card-img-top mb-5 mb-md-0" src="{{ product.image.url }}" alt="{{ product.name }}" />
+            </div>
+            <div class="col-md-6">
+                <h1 class="display-5 fw-bolder">{{ product.name }}</h1>
+                <div class="fs-5 mb-3">
+                    <strong>Price: </strong> IDR <span id="unit-price">{{ product.price|floatformat:0 }}</span>
+                </div>
+                <div class="d-flex align-items-center mb-3">
+                    <button type="button" class="btn btn-minus-plus" onclick="decreaseQuantity()">-</button>
+                    <input 
+                        type="number" 
+                        id="quantity-input" 
+                        class="form-control text-center mx-2" 
+                        value="1" 
+                        min="1" 
+                        max="{{ product.stock }}" 
+                        style="width: 60px;" 
+                        onchange="updateTotalPrice()">
+                    <button type="button" class="btn btn-minus-plus" onclick="increaseQuantity()">+</button>
+                </div>
+                <div class="fs-5 mb-4">
+                    <strong>Total Price: </strong> IDR <span id="total-price">{{ product.price|floatformat:0 }}</span>
+                </div>
+                <form method="POST" action="{% url 'process_order' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="hidden" name="product_id" value="{{ product.id }}">
+                    <input type="hidden" id="quantity-hidden" name="quantity" value="1">
+                    <div class="mb-3">
+                        <label for="contact" class="form-label">Contact:</label>
+                        <input type="text" name="contact" id="contact" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="payment_proof" class="form-label">Upload Payment Proof:</label>
+                        <input type="file" name="payment_proof" id="payment_proof" class="form-control" accept="image/*" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Pay Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    const unitPrice = parseFloat(document.getElementById("unit-price").innerText.replace(/,/g, ''));
+    const quantityInput = document.getElementById("quantity-input");
+    const totalPriceElement = document.getElementById("total-price");
+    const quantityHidden = document.getElementById("quantity-hidden");
+
+    function updateTotalPrice() {
+        let quantity = parseInt(quantityInput.value);
+        if (isNaN(quantity) || quantity < 1) {
+            quantity = 1;
+            quantityInput.value = 1;
+        }
+        const totalPrice = unitPrice * quantity;
+        totalPriceElement.innerText = totalPrice.toLocaleString('en-US');
+        quantityHidden.value = quantity; // Update hidden input for the form
+    }
+
+    function decreaseQuantity() {
+        if (quantityInput.value > 1) {
+            quantityInput.stepDown();
+            updateTotalPrice();
+        }
+    }
+
+    function increaseQuantity() {
+        if (quantityInput.value < parseInt(quantityInput.max)) {
+            quantityInput.stepUp();
+            updateTotalPrice();
+        }
+    }
+
+    // Update total price on page load
+    updateTotalPrice();
+</script>
+{% endblock %}

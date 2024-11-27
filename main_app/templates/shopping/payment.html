@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% block title %}Payment{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Payment</h2>
+
+  {% if cart_items %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Quantity</th>
+        <th>Subtotal</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in cart_items %}
+      <tr>
+        <td>{{ item.product.name }}</td>
+        <td>Rp {{ item.product.price }}</td>
+        <td>{{ item.quantity }}</td>
+        <td>Rp {{ item.get_total }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3" class="text-end"><strong>Total:</strong></td>
+        <td><strong>Rp {{ total_price }}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="mb-3">
+      {{ form.contact.label_tag }}
+      {{ form.contact }}
+    </div>
+    <div class="mb-3">
+      {{ form.payment_proof.label_tag }}
+      {{ form.payment_proof }}
+    </div>
+    <button type="submit" class="btn btn-success">Pay</button>
+  </form>
+  {% else %}
+  <p>Your cart is empty. Please add items before proceeding to payment.</p>
+  {% endif %}
+</div>
+{% endblock %}
