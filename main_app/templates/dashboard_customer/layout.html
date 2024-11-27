@@ -26,7 +26,7 @@
     <div class="head-section">
       <nav class="navbar navbar-expand-lg py-3 fixed-top mb-2">
         <div class="container">
-          <a class="navbar-brand fw-bold" href="/home">
+          <a class="navbar-brand fw-bold" href="{% url 'home'%}">
             <img src="{% static 'images/logo-text.png' %}" alt="">
           </a>
           <button
@@ -40,6 +40,46 @@
             <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarNav">
+            <span class="navbar-text mx-2">Logged in as: {{ request.user.user_type }}</span>
+            {% if request.user.is_authenticated %}
+              {% if request.user.user_type == 'agent'  or request.user.user_type == 'Agent' %}
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" aria-current="page" href="{% url 'home'%}">Home</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="{% url 'about'%}">About Us</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="">Agent Product</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="/productlist">Product</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="/contact">Contact</a>
+                </li>
+              </ul>
+              {% else %}
+              <ul class="navbar-nav mx-auto">
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" aria-current="page" href="{% url 'home'%}">Home</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="{% url 'about'%}">About Us</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="">Agent</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="/productlist">Product</a>
+                </li>
+                <li class="nav-item ms-0 ms-md-3 mx-2">
+                  <a class="nav-link fw-bold" href="/contact">Contact</a>
+                </li>
+              </ul>
+              {% endif %}
+            {% else %}
             <ul class="navbar-nav mx-auto">
               <li class="nav-item ms-0 ms-md-3 mx-2">
                 <a class="nav-link fw-bold" aria-current="page" href="{% url 'home'%}">Home</a>
@@ -48,7 +88,7 @@
                 <a class="nav-link fw-bold" href="{% url 'about'%}">About Us</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
-                <a class="nav-link fw-bold" href="/become agent">Agent</a>
+                <a class="nav-link fw-bold" href="">Our Agents</a>
               </li>
               <li class="nav-item ms-0 ms-md-3 mx-2">
                 <a class="nav-link fw-bold" href="/productlist">Product</a>
@@ -57,6 +97,7 @@
                 <a class="nav-link fw-bold" href="/contact">Contact</a>
               </li>
             </ul>
+            {% endif %}
             <div>
               {% if request.user.is_authenticated %}
               <!-- HANYA DITAMPILKAN SAAT SUDAH SIGN IN -->

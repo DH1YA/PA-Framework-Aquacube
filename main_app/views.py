@@ -88,7 +88,7 @@ def login_view(request):
             login(request, user)
             # Redirect user berdasarkan grup atau role
             if user.groups.filter(name='ADMIN'):
-                return redirect('/admin/')  # arahkan ke admin paner
+                return redirect('/admin/')  # arahkan ke admin panel
             elif user.groups.filter(name='AGENT'):
                 return redirect('agent_home')  # dashboard agent
             else:
@@ -121,7 +121,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('cust_home')  
+            return redirect('home')  
     else:
         form = SignUpForm()
     return render(request, 'signup.html', {'form': form})

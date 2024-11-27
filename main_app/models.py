@@ -23,11 +23,9 @@ class CustomUser(AbstractUser):
     is_verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
-        if self.user_type: 
-          self.user_type = self.user_type.upper()
         # Pastikan pengguna masuk grup sesuai tipe user
         super().save(*args, **kwargs)
-        group, created = Group.objects.get_or_create(name=self.user_type)
+        group, created = Group.objects.get_or_create(name=self.user_type.upper())
         self.groups.add(group)
 
 
