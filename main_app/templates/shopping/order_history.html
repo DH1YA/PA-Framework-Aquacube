@@ -1,0 +1,50 @@
+{% extends 'layout.html' %}
+{% block title %}Order History{% endblock %}
+{% load static %}
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Order History</h2>
+    <div class="card cart">
+        <div class="card-body cart">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Order ID</th>
+                            <th>Total Transaction</th>
+                            <th>Date Created</th>
+                            <th>Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.id }}</td>
+                            <td>IDR {{ order.total_amount|floatformat:0 }}</td>
+                            <td>{{ order.created_at|date:"d M Y H:i" }}</td>
+                            <td>
+                                <span class="badge 
+                                    {% if order.status == 'pending' %} bg-warning
+                                    {% elif order.status == 'paid' %} bg-success
+                                    {% elif order.status == 'cancelled' %} bg-danger
+                                    {% else %} bg-primary {% endif %}">
+                                    {{ order.get_status_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <a href="{% url 'order_detail' order.id %}" class="btn btn-primary btn-sm">View</a>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="5" class="text-center">No orders found.</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

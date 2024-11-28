@@ -1,0 +1,74 @@
+{% extends 'layout.html' %}
+{% block title %}Order Details{% endblock %}
+{% load static %}
+
+{% block content %}
+<div class="container py-5">
+    <h2 class="mb-4">Order Details</h2>
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Order ID: {{ order.id }}</h5>
+            <p><strong>Total Transaction:</strong> IDR {{ order.total_amount|floatformat:0 }}</p>
+            <p><strong>Order Date:</strong> {{ order.created_at|date:"d M Y H:i" }}</p>
+            <p><strong>Status:</strong> {{ order.get_status_display }}</p>
+            <p><strong>Contact:</strong> {{ order.contact }}</p>
+            {% if order.payment_proof %}
+            <p><strong>Payment Proof:</strong></p>
+            <img src="{{ order.payment_proof.url }}" alt="Payment Proof" class="img-fluid" style="max-width: 200px;">
+            {% else %}
+            <p><strong>Payment Proof:</strong> Not uploaded</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Ordered Items</h5>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Product</th>
+                            <th>Quantity</th>
+                            <th>Price (Each)</th>
+                            <th>Total Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in order_items %}
+                        <tr>
+                            <td>{{ item.product.name }}</td>
+                            <td>{{ item.quantity }}</td>
+                            <td class="price">IDR {{ item.price|floatformat:0 }}</td>
+                            <td class="total-price"></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+      const rows = document.querySelectorAll("tbody tr"); // Ambil semua baris data
+      
+      rows.forEach(row => {
+          // Ambil nilai dari kolom Price
+          const priceText = row.children[2].textContent.trim(); // Kolom Price
+          const rawPrice = parseFloat(priceText.replace("IDR", "").replace(",", "").replace(".", "")); 
+          
+          // Format kolom Price
+          row.children[2].textContent = `IDR ${rawPrice.toLocaleString("id-ID")}`;
+          
+          // Ambil Quantity
+          const quantity = parseInt(row.children[1].textContent.trim());
+          
+          // Hitung dan format Total Price
+          const totalPrice = quantity * rawPrice;
+          row.children[3].textContent = `IDR ${totalPrice.toLocaleString("id-ID")}`;
+      });
+  });
+</script>
+
+{% endblock %}

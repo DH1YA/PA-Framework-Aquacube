@@ -1042,6 +1042,18 @@ text-align: center;
   background-color: var(--color-black);
   border-color: var(--color-black);
 }
+.card .btn-pay-cart {
+  color: var(--color-white);
+  background-color: var(--color-darkblue);
+  width: 120px;
+  height: 35px;
+  border-radius: 5px;
+  border-color: var(--color-darkblue);
+}
+.card .btn-pay-cart:hover{
+  background-color: var(--color-black);
+  border-color: var(--color-black);
+}
 .card .btn-checkout-cart {
   color: var(--color-white);
   background-color: var(--color-darkblue);

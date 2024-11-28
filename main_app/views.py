@@ -305,3 +305,14 @@ def payment(request):
 
 def listpay(request):
     return render(request, 'shopping/listpay.html')
+  
+# Riwayat Pesanan
+def order_history(request):
+    orders = Order.objects.filter(user=request.user).order_by('-created_at')
+    return render(request, 'shopping/order_history.html', {'orders': orders})
+
+# Detail Pesanan
+def order_detail(request, order_id):
+    order = get_object_or_404(Order, id=order_id, user=request.user)
+    order_items = OrderItem.objects.filter(order=order)
+    return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
