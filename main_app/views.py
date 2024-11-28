@@ -93,13 +93,13 @@ def login_view(request):
 
             # Cek apakah username ada di database
             if not User.objects.filter(username=username).exists():
-                messages.error(request, "Username tidak ditemukan.")
+                messages.error(request, "Username not found.")
             else:
                 # Jika username ada, berarti password salah
                 user = authenticate(request, username=username, password=password)
                 if user is None:
-                    messages.error(request, "Password salah.")
-            messages.error(request, 'Silahkan periksa kembali username atau password')
+                    messages.error(request, "Wrong Password.")
+            messages.error(request, 'Please check your username and Password')
     else:
         form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -124,16 +124,12 @@ def agent_productlist(request):
   products = Product.objects.all()
   return render(request, 'dashboard_agent/product.html', {'products':products})
 
-# def cust_productlist(request): 
-#   products = Product.objects.filter(user_type='customer')
-#   return render(request, 'dashboard_customer/product.html', {'products':products})
-
 def cust_productlist(request):
-    query = request.GET.get('q', '')  # Get the search query from the URL
+    query = request.GET.get('q', '') 
     if query:
         products = Product.objects.filter(
             user_type='customer',
-            name__icontains=query  # Filter by name containing the query (case-insensitive)
+            name__icontains=query 
         )
     else:
         products = Product.objects.filter(user_type='customer')
