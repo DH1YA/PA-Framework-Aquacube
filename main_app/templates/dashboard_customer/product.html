@@ -3,8 +3,38 @@
 {% block title %}Product{% endblock %}
 
 {% block content %}
-<section id="product" class="mt-5">
-    <div class="container mt-5">
+
+<section>
+    <div class="container">
+        <div class="justify-content-center row mt-5">
+            <div class="col-lg-12">
+                <div class="mb-4">
+                    <form action="{% url 'cust_productlist' %}" method="get" class="">
+                        <div class="g-2 row d-flex row-search-product">
+                            <div class="search-product d-flex">
+                                <input 
+                                    id="exampleFormControlInput1" 
+                                    name="q" 
+                                    placeholder="Search... " 
+                                    type="search" 
+                                    class="form-control" 
+                                    value="{{ query|default:'' }}" 
+                                />
+                                <button type="submit" class="btn btn-search-product">Search
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="product">
+    <div class="container">
         <div class="row justify-content-center">
             {% if products %}
                 <div class="d-flex flex-wrap justify-content-center mx-auto">
@@ -24,7 +54,13 @@
                 </div>
             {% else %}
                 <div class="text-center my-5 no-product">
-                    <h3 class="mt-5">No Products Available</h3>
+                    <h3 class="mt-5">
+                        {% if query %}
+                            No Products Found for "{{ query }}"
+                        {% else %}
+                            No Products Available
+                        {% endif %}
+                    </h3>
                     <p class="text-muted">We are currently out of stock. Please check back later!</p>
                 </div>
             {% endif %}

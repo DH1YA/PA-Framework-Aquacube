@@ -124,9 +124,21 @@ def agent_productlist(request):
   products = Product.objects.all()
   return render(request, 'dashboard_agent/product.html', {'products':products})
 
-def cust_productlist(request): 
-  products = Product.objects.filter(user_type='customer')
-  return render(request, 'dashboard_customer/product.html', {'products':products})
+# def cust_productlist(request): 
+#   products = Product.objects.filter(user_type='customer')
+#   return render(request, 'dashboard_customer/product.html', {'products':products})
+
+def cust_productlist(request):
+    query = request.GET.get('q', '')  # Get the search query from the URL
+    if query:
+        products = Product.objects.filter(
+            user_type='customer',
+            name__icontains=query  # Filter by name containing the query (case-insensitive)
+        )
+    else:
+        products = Product.objects.filter(user_type='customer')
+    
+    return render(request, 'dashboard_customer/product.html', {'products': products, 'query': query})
 
 @login_required 
 def product_detail(request, slug):
