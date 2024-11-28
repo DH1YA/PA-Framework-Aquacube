@@ -11,9 +11,9 @@
                 <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mt-5 mb-5">
                     <div class="card h-100 mt-5 profile-img">
                         {% if user.profile_image %}
-                            <img src="{{ user.profile_image.url }}" class="mt-3 text-center" alt="Profile Image">
+                            <img src="{{ user.profile_image.url }}" class="mt-3 text-center" alt="">
                         {% else %}
-                            <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="Default Profile Image">
+                            <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="">
                         {% endif %}
                     </div>
                 </div>

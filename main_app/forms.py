@@ -44,8 +44,8 @@ class CustomAuthenticationForm(AuthenticationForm):
 class PaymentForm(forms.Form):
     contact = forms.CharField(
         max_length=15,
-        label='Contact Number',
-        widget=forms.TextInput(attrs={'class': 'form-control'}) 
+        label='Phone Number',
+        widget=forms.NumberInput(attrs={'class': 'form-control'}) 
     )
     payment_proof = forms.ImageField(
         label='Upload Payment Proof',

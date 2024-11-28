@@ -7,7 +7,7 @@
   <h2 class="mb-4">Payment</h2>
 
   {% if cart_items %}
-  <div class="card cart">
+  <div class="card cart card-payment">
     <div class="card-body cart">
       <div class="table-responsive">
         <table class="table table-hover">
@@ -42,15 +42,15 @@
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-    <div class="mb-3">
+    <div class="mb-3 input-contact mt-3">
       {{ form.contact.label_tag }}
       {{ form.contact }}
     </div>
-    <div class="mb-3">
+    <div class="mb-3 input-payment">
       {{ form.payment_proof.label_tag }}
       {{ form.payment_proof }}
     </div>
-    <button type="submit" class="btn btn-pay-chart btn-sm btn-outline-primary ms-2">
+    <button type="submit" class="btn btn-pay ms-2">
       Pay
     </button>
   </form>
