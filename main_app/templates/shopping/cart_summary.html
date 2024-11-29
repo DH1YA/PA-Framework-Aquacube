@@ -33,7 +33,7 @@
                               </div>
                           </td>
                           <td> {{ item.product.name }}</td>
-                          <td>Rp {{ item.product.price }}</td>
+                          <td>IDR {{ item.product.price }}</td>
                           <td>
                               <form action="{% url 'update_cart_item' item.id %}" method="POST" 
                                     class="d-flex align-items-center">
@@ -64,7 +64,7 @@
                   <tfoot>
                       <tr>
                           <td colspan="4" class="text-end"><strong>Total:</strong></td>
-                          <td colspan="5"><strong>Rp {{ total_price }}</strong></td>
+                          <td colspan="5"><strong>IDR {{ total_price }}</strong></td>
                       </tr>
                   </tfoot>
               </table>

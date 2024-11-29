@@ -120,9 +120,7 @@
                   <li><a class="dropdown-item" href="{% url 'profile'%}">Profile</a></li>
                   <li><a class="dropdown-item" href="{% url 'order_history'%}">Order History
                   </a></li>
-                  <li><a class="dropdown-item" href="{% url 'listpay'%}">Payment History
-                  </a></li>
-                  <li><a class="dropdown-item" href="{% url 'logout'%}">Logout
+                  <li><a class="dropdown-item" href="{% url 'logout'%}">Sign Out
                     <i class="fas fa-sign-out-alt flex-shrink-0"></i>
                   </a></li>
                 </ul>
@@ -164,11 +162,27 @@
           <div class="col-lg-2 col-md-3 footer-links">
             <h4>Useful Links</h4>
             <ul>
-              <li><a href="/home">Home</a></li>
-              <li><a href="/about">About us</a></li>
-              <li><a href="/agent">Agent</a></li>
-              <li><a href="/product">Product</a></li>
-              <li><a href="/contact">Contact</a></li>
+              {% if request.user.is_authenticated %}
+                {% if request.user.user_type == 'agent'  or request.user.user_type == 'Agent' %}
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About us</a></li>
+                <li><a href="{% url 'agent_productlist'%}">Agent Product</a></li>
+                <li><a href="{% url 'cust_productlist'%}">Product</a></li>
+                <li><a href="/contact">Contact</a></li>
+                {% else %}
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About us</a></li>
+                <li><a href="/become agent">Agent</a></li>
+                <li><a href="{% url 'cust_productlist'%}">Product</a></li>
+                <li><a href="/contact">Contact</a></li>
+                {% endif %}
+              {% else %}
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About us</a></li>
+                <li><a href="{% url 'listagent'%}">Our Agents</a></li>
+                <li><a href="{% url 'cust_productlist'%}">Product</a></li>
+                <li><a href="/contact">Contact</a></li>
+              {% endif %}
             </ul>
           </div>
   

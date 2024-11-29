@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path, include
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+from .views import AgentApplicationViewSet
+
+router = DefaultRouter()
+router.register(r'agents', AgentApplicationViewSet)
 
 urlpatterns = [
     path('', views.home, name='home'),
@@ -28,6 +33,7 @@ urlpatterns = [
     path('listorder/', views.listorder, name='listorder'),
     path('orders/', views.order_history, name='order_history'),
     path('orders/<int:order_id>/', views.order_detail, name='order_detail'),
+    path('api/', include(router.urls)),  # Endpoint: /api/agent-applications/
 ]
 
 if settings.DEBUG:

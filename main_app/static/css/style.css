@@ -1164,6 +1164,10 @@ text-align: center;
   color: var(--color-white);
   width: 150px;
 }
+.btn-pay:hover {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
 
 /* ORDER DETAILS PAGE */
 .con-order-details h5{

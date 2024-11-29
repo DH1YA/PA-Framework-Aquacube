@@ -55,10 +55,34 @@ class PaymentForm(forms.Form):
 class AgentApplicationForm(forms.ModelForm):
     class Meta:
         model = AgentApplication
-        fields = ['company_name', 'company_address', 'npwp', 'photo']
+        fields = ['company_name', 'company_address', 'company_email', 'company_contact', 'npwp', 'photo']
         widgets = {
-            'company_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'company_address': forms.TextInput(attrs={'class': 'form-control'}),
-            'npwp': forms.TextInput(attrs={'class': 'form-control'}),
-            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+            'company_name': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter company name'
+            }),
+            'company_address': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter company address'
+            }),
+            'company_email': forms.EmailInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter company email'
+            }),
+            'company_contact': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter company contact number'
+            }),
+            'npwp': forms.TextInput(attrs={
+                'class': 'form-control',
+                'placeholder': 'Enter NPWP number'
+            }),
+            'photo': forms.FileInput(attrs={
+                'class': 'form-control'
+            }),
         }
+
+class AgentChangeForm(UserChangeForm):
+    class Meta:
+        model = AgentApplication
+        fields = ['company_name', 'company_address', 'npwp', 'photo', 'company_contact', 'company_email']

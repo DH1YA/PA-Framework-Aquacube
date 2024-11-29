@@ -4,65 +4,72 @@
 {% block title %}Profile{% endblock %}
 
 {% block content %}
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="container profile" id="profile">
-            <div class="row mt-5">
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mt-5 mb-5">
-                    <div class="card h-100 mt-5 profile-img">
-                        {% if user.profile_image %}
-                            <img src="{{ user.profile_image.url }}" class="mt-3 text-center" alt="">
-                        {% else %}
-                            <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="">
-                        {% endif %}
+    {% if request.user.is_authenticated %}
+        <!-- AGENT -->
+        {% if request.user.user_type == 'agent'  or request.user.user_type == 'Agent' %}
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container profile" id="profile">
+                <div class="row mt-5">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-img">
+                            {% if user.photo %}
+                                <img src="{{ user.photo.url }}" class="mt-3 text-center" alt="">
+                            {% else %}
+                                <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="">
+                            {% endif %}
+                        </div>
                     </div>
-                </div>
-                <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 mt-5 mb-5">
-                    <div class="card h-100 mt-5 profile-text">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input type="text" class="form-control" name="username" value="{{ form.username.value }}">
+                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-text">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="company_name">Company Name</label>
+                                            <input type="text" class="form-control" name="company_name" value="{{ form_agent.company_name.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="company_email">Company Email</label>
+                                            <input type="text" class="form-control" name="company_email" value="{{ form_agent.company_email.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="company_contact">Company Contact</label>
+                                            <input type="text" class="form-control" name="company_contact" value="{{ form_agent.company_contact.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="npwp">NPWP</label>
+                                            <input type="text" class="form-control" name="npwp" value="{{ form_agent.npwp.value }}" 
+                                            maxlength="16" 
+                                            minlength="16"
+                                            required>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="company_address">company_address</label>
+                                            <input type="text" class="form-control" name="company_address" value="{{ form_agent.company_address.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="photo">Company Image</label>
+                                            <input type="file" class="form-control" name="photo" value="{{ form_agent.photo.value }}">
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="first_name">Full Name</label>
-                                        <input type="text" class="form-control" name="first_name" value="{{ form.first_name.value }}">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="address">Address</label>
-                                        <input type="text" class="form-control" name="address" value="{{ form.address.value }}">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" name="email" value="{{ form.email.value }}">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="phone">Phone</label>
-                                        <input type="text" class="form-control" name="phone" value="{{ form.phone.value }}">
-                                    </div>
-                                </div>
-                                <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
-                                    <div class="form-group">
-                                        <label for="profile_image">Profile Image</label>
-                                        <input type="file" class="form-control" name="profile_image" value="{{ form.profile_image.value }}">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row gutters mt-5">
-                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                                    <div class="btn-profile-page">
-                                        <button type="button" class="btn btn-back me-2" onclick="window.location.href='/'">Back</button>
-                                        <button type="submit" class="btn btn-update">Update</button>
+                                <div class="row gutters mt-5">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                                        <div class="btn-profile-page">
+                                            <button type="button" class="btn btn-back me-2" onclick="window.location.href='/'">Back</button>
+                                            <button type="submit" class="btn btn-update">Update</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -70,6 +77,146 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </form>
+        </form>
+
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container profile" id="profile">
+                <div class="row mt-5">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-img">
+                            {% if user.profile_image %}
+                                <img src="{{ user.profile_image.url }}" class="mt-3 text-center" alt="">
+                            {% else %}
+                                <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-text">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" name="username" value="{{ form.username.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="first_name">Full Name</label>
+                                            <input type="text" class="form-control" name="first_name" value="{{ form.first_name.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" name="address" value="{{ form.address.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" value="{{ form.email.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ form.phone.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="profile_image">Profile Image</label>
+                                            <input type="file" class="form-control" name="profile_image" value="{{ form.profile_image.value }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters mt-5">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                                        <div class="btn-profile-page">
+                                            <button type="button" class="btn btn-back me-2" onclick="window.location.href='/'">Back</button>
+                                            <button type="submit" class="btn btn-update">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% else %}
+        <!-- CUSTOMER -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="container profile" id="profile">
+                <div class="row mt-5">
+                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-img">
+                            {% if user.profile_image %}
+                                <img src="{{ user.profile_image.url }}" class="mt-3 text-center" alt="">
+                            {% else %}
+                                <img src="{% static 'images/icon-user.png' %}" class="mt-3 text-center" alt="">
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12 mt-5 mb-5">
+                        <div class="card h-100 mt-5 profile-text">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="username">Username</label>
+                                            <input type="text" class="form-control" name="username" value="{{ form.username.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="first_name">Full Name</label>
+                                            <input type="text" class="form-control" name="first_name" value="{{ form.first_name.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="address">Address</label>
+                                            <input type="text" class="form-control" name="address" value="{{ form.address.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" class="form-control" name="email" value="{{ form.email.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ form.phone.value }}">
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mt-3">
+                                        <div class="form-group">
+                                            <label for="profile_image">Profile Image</label>
+                                            <input type="file" class="form-control" name="profile_image" value="{{ form.profile_image.value }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row gutters mt-5">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
+                                        <div class="btn-profile-page">
+                                            <button type="button" class="btn btn-back me-2" onclick="window.location.href='/'">Back</button>
+                                            <button type="submit" class="btn btn-update">Update</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        {% endif %}
+    {% endif %}
 {% endblock %}

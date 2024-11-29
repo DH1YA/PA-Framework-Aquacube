@@ -10,8 +10,11 @@ from django.http import JsonResponse
 from .models import Cart, CartItem, Product,Order, OrderItem, AgentApplication
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-from .forms import CustomUserChangeForm
+from .forms import CustomUserChangeForm, AgentChangeForm
 from .decorators import group_required
+from rest_framework import viewsets
+from .serializers import AgentApplicationSerializer
+import requests
 # Create your views here.
 
 def home(request): 
@@ -45,32 +48,108 @@ def contact(request):
 def profile(request):
     user = request.user
     
-    if request.method == 'POST':
-        form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
-        if form.is_valid():
-            form.save()
-    
-            messages.success(request, 'Your profile has been successfully updated!')
-            return redirect('profile')  
-        
-        else:
-            messages.error(request, 'There was an error updating your profile. Please try again.')
-    else:
-        form = CustomUserChangeForm(instance=user)
+    if user.user_type.lower() == 'agent':
+        print(user.npwp)
+        if request.method == 'POST':
+            form_agent = AgentChangeForm(request.POST, request.FILES, instance=user)
+            if form_agent.is_valid():
+                form_agent.save()
 
-    return render(request, 'profile.html', {'form': form, 'user': user})
+                messages.success(request, 'Your profile has been successfully updated!')
+                return redirect('profile')  
+            
+            else:
+                messages.error(request, 'There was an error updating your profile. Please try again.')
+
+            form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+        
+                messages.success(request, 'Your profile has been successfully updated!')
+                return redirect('profile')  
+            
+            else:
+                messages.error(request, 'There was an error updating your profile. Please try again.')
+
+        else:
+            form_agent = AgentChangeForm(instance=user)
+            form = CustomUserChangeForm(instance=user)
+
+    else:
+        if request.method == 'POST':
+            form = CustomUserChangeForm(request.POST, request.FILES, instance=user)
+            if form.is_valid():
+                form.save()
+        
+                messages.success(request, 'Your profile has been successfully updated!')
+                return redirect('profile')  
+            
+            else:
+                messages.error(request, 'There was an error updating your profile. Please try again.')
+        else:
+            form = CustomUserChangeForm(instance=user)
+            form_agent = None
+
+    return render(request, 'profile.html', {'form': form, 'form_agent': form_agent, 'user': user})
 
 def listorder(request):
     return render(request, 'shopping/listorder.html')
 
 def listagent(request):
-    return render(request, 'listagent.html')
+    query = request.GET.get('q', '')  # Ambil query pencarian dari URL
+    api_url = f"http://127.0.0.1:8000/api/agents/?q={query}"  # Sesuaikan dengan URL API Anda
+    response = requests.get(api_url)  # Fetch data dari API
+    if response.status_code == 200:
+        agent_applications = response.json()  # Parse JSON ke Python dict
+        agent_applications = [agent for agent in agent_applications if agent.get('status') == 'approved']
+    else:
+        agent_applications = []  # Jika gagal, gunakan data kosong
+
+    context = {
+        'agent_applications': agent_applications,
+        'query': query,  # Kirim query untuk di-render kembali di template
+    }
+    return render(request, 'listagent.html', context)
 # =============== Customer ========================
+# Daftar Agent
+@login_required
+@group_required('CUSTOMER')
+def agent_form(request):
+    # Periksa apakah user sudah memiliki aplikasi agen
+    agent_application = AgentApplication.objects.filter(user=request.user).first()
 
-def cust_agentform(request): 
-  return render(request, 'agent.html')
+    if request.method == "POST":
+        if agent_application:
+            messages.warning(request, "You have already submitted an agent application.")
+            return redirect('agent_form')
+        
+        # Proses pengiriman form
+        form = AgentApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            agent_application = form.save(commit=False)
+            agent_application.user = request.user
+            agent_application.save()
 
-  
+            user = request.user
+            user.company_name = agent_application.company_name
+            user.company_address = agent_application.company_address
+            user.company_contact = agent_application.company_contact
+            user.company_email = agent_application.company_email
+            user.npwp = agent_application.npwp
+            user.photo = agent_application.photo
+            user.save()
+            return redirect('agent_form')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+    
+    else:
+        form = AgentApplicationForm()
+
+    return render(request, 'agent_form.html', {
+        'form': form,
+        'agent_application': agent_application,
+    })
+
 #================== agent =======================
 
 
@@ -357,32 +436,55 @@ def order_detail(request, order_id):
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
   
+from django.db.models import Q
+# API view untuk AgentApplication
+class AgentApplicationViewSet(viewsets.ModelViewSet):
+    queryset = AgentApplication.objects.all()
+    serializer_class = AgentApplicationSerializer
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        if query:
+            return AgentApplication.objects.filter(
+                Q(company_name__icontains=query) |
+                Q(company_address__icontains=query) |
+                Q(company_contact__icontains=query) |
+                Q(company_email__icontains=query)
+            )
+        return super().get_queryset()
 # Daftar Agent
-@login_required
-@group_required('CUSTOMER')
-def agent_form(request):
-    # Periksa apakah user sudah memiliki aplikasi agen
-    agent_application = AgentApplication.objects.filter(user=request.user).first()
+# @login_required
+# @group_required('CUSTOMER')
+# def agent_form(request):
+#     # Periksa apakah user sudah memiliki aplikasi agen
+#     agent_application = AgentApplication.objects.filter(user=request.user).first()
 
-    if request.method == "POST":
-        if agent_application:
-            messages.warning(request, "You have already submitted an agent application.")
-            return redirect('agent_form')
+#     if request.method == "POST":
+#         if agent_application:
+#             messages.warning(request, "You have already submitted an agent application.")
+#             return redirect('agent_form')
         
-        # Proses pengiriman form
-        form = AgentApplicationForm(request.POST, request.FILES)
-        if form.is_valid():
-            agent_application = form.save(commit=False)
-            agent_application.user = request.user
-            agent_application.save()
-            return redirect('agent_form')
-        else:
-            messages.error(request, "Please correct the errors in the form.")
-    
-    else:
-        form = AgentApplicationForm()
+#         # Proses pengiriman form
+#         form = AgentApplicationForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             agent_application = form.save(commit=False)
+#             agent_application.user = request.user
+#             agent_application.save()
 
-    return render(request, 'agent_form.html', {
-        'form': form,
-        'agent_application': agent_application,
-    })
+#             user = request.user
+#             user.company_name = agent_application.company_name
+#             user.company_address = agent_application.company_address
+#             user.npwp = agent_application.npwp
+#             user.photo = agent_application.photo
+#             user.save()
+            
+#             return redirect('agent_form')
+#         else:
+#             messages.error(request, "Please correct the errors in the form.")
+    
+#     else:
+#         form = AgentApplicationForm()
+
+#     return render(request, 'agent_form.html', {
+#         'form': form,
+#         'agent_application': agent_application,
+#     })

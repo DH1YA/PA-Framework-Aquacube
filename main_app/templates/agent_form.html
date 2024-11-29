@@ -13,10 +13,10 @@
             <h5>Status: {{ agent_application.status|title }}</h5>
             <p>Application submitted on: {{ agent_application.created_at }}</p>
             {% if agent_application.status == "rejected" %}
-                <p class="text-danger">Mohon maaf permintaan anda belum dapat disetujui. Silahkan hubungi pihak kami untuk detailnya.</p>
+                <p class="text-danger">We apologize, your request cannot be approved at this time. Please contact us for further details.</p>
             {% endif %}
             {% if agent_application.status == "approved" %}
-                <p class="text-success">Selamat! Pendaftaran sebagai agent telah disetujui, silahkan login kembali untuk mengakses produk dengan harga spesial.</p>
+                <p class="text-success">Congratulations! Your registration as an agent has been approved. Please sign in again to access products at special prices.</p>
                 <a href="{% url 'login'%}">
                   <button class="btn btn-signin" style="color :#FAFAFA;">Sign In</button>
                 </a>

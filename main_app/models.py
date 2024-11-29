@@ -4,7 +4,7 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.utils.text import slugify
-
+from django.core.validators import MinLengthValidator
 
 
 class CustomUser(AbstractUser):
@@ -21,6 +21,10 @@ class CustomUser(AbstractUser):
     # Untuk agen
     company_name = models.CharField(max_length=100, blank=True, null=True)
     company_address = models.CharField(max_length=250, blank=True, null=True)
+    company_email = models.EmailField(max_length=100, blank=True)
+    company_contact = models.CharField(max_length=15 , blank=True, null=True)
+    npwp = models.CharField(max_length=16, validators=[MinLengthValidator(16, message="NPWP must be exactly 16 characters.")], blank=True, null=True)
+    photo = models.ImageField(upload_to='company_picture/', null=True, blank=True)
     is_verified = models.BooleanField(default=False)
 
     def save(self, *args, **kwargs):
@@ -127,7 +131,9 @@ class AgentApplication(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='agent_application')
     company_name = models.CharField(max_length=100)
     company_address = models.CharField(max_length=250, blank=True, null=True)
-    npwp = models.CharField(max_length=50)
+    company_email = models.EmailField(max_length=100, blank=True, null=True)
+    company_contact = models.CharField(max_length=15, blank=True, null=True)
+    npwp = models.CharField(max_length=16, validators=[MinLengthValidator(16, message="NPWP must be exactly 16 characters.")],)
     photo = models.ImageField(upload_to='company_picture/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
     created_at = models.DateTimeField(auto_now_add=True)
