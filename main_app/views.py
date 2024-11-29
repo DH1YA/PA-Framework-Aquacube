@@ -15,6 +15,9 @@ from .decorators import group_required
 from rest_framework import viewsets
 from .serializers import AgentApplicationSerializer
 import requests
+from rest_framework import viewsets
+from .serializers import AgentApplicationSerializer
+import requests
 # Create your views here.
 
 def home(request): 
@@ -94,6 +97,7 @@ def profile(request):
 
 def listorder(request):
     return render(request, 'shopping/listorder.html')
+
 
 def listagent(request):
     query = request.GET.get('q', '')  # Ambil query pencarian dari URL

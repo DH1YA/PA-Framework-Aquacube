@@ -52,6 +52,7 @@ class PaymentForm(forms.Form):
         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})  
     )
 
+# forms.py
 class AgentApplicationForm(forms.ModelForm):
     class Meta:
         model = AgentApplication
