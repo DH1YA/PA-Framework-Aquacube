@@ -175,9 +175,22 @@ def update_cart_item(request, item_id):
 
 @login_required
 def remove_cart_item(request, item_id):
+    # Ambil item keranjang yang akan dihapus
     cart_item = get_object_or_404(CartItem, id=item_id, cart__user=request.user)
-    cart_item.delete()
-    messages.success(request, 'Item removed from cart')
+    
+    # Tambahkan kembali jumlah stok produk
+    product = cart_item.product
+    quantity = cart_item.quantity
+    
+    with transaction.atomic():  # (atomic)mjika terjadi kesalahan saat menghapus CartItem atau memperbarui stok, perubahan tidak akan diterapkan sebagian
+        product.stock += quantity
+        product.save()
+        
+        # Hapus item dari keranjang
+        cart_item.delete()
+    
+    # Berikan pesan sukses
+    messages.success(request, 'Item removed from cart and stock updated.')
     return redirect('cart_summary')
 
 @login_required
@@ -197,6 +210,13 @@ def add_to_cart(request):
 
         cart_item.quantity += quantity
         cart_item.save()
+        
+        # Kurangi stok produk
+        product = get_object_or_404(Product, id=cart_item.product.id)
+        product.stock -= cart_item.quantity
+        if product.stock <= 0 :
+          product.stock = 0
+        product.save()
 
         messages.success(request, "Item added to cart.")
         return redirect("cart_summary")
@@ -253,6 +273,8 @@ def process_order(request):
 
         # Kurangi stok produk
         product.stock -= quantity
+        if product.stock <= 0 :
+          product.stock = 0
         product.save()
 
         return redirect('home')  # Halaman sukses
@@ -291,10 +313,6 @@ def payment(request):
                     quantity=item.quantity,
                     price=item.product.price
                 )
-                # Kurangi stok produk
-                product = get_object_or_404(Product, id=item.product.id)
-                product.stock -= item.quantity
-                product.save()
 
             # Kosongkan Cart
             cart.cartitem_set.all().delete()
