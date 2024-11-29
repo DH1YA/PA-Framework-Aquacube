@@ -127,6 +127,8 @@ class AgentApplication(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='agent_application')
     company_name = models.CharField(max_length=100)
     company_address = models.CharField(max_length=250, blank=True, null=True)
+    company_email = models.EmailField(max_length=100)
+    company_contact = models.CharField(max_length=15)
     npwp = models.CharField(max_length=50)
     photo = models.ImageField(upload_to='company_picture/', blank=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     
     'main_app', #aplikasi utama
     'django_bootstrap5', # bootstrap5
+    'rest_framework',
     
 ]
 

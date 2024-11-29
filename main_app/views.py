@@ -12,6 +12,9 @@ from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .forms import CustomUserChangeForm
 from .decorators import group_required
+from rest_framework import viewsets
+from .serializers import AgentApplicationSerializer
+import requests
 # Create your views here.
 
 def home(request): 
@@ -63,12 +66,55 @@ def profile(request):
 def listorder(request):
     return render(request, 'shopping/listorder.html')
 
-def listagent(request):
-    return render(request, 'listagent.html')
-# =============== Customer ========================
 
-def cust_agentform(request): 
-  return render(request, 'agent.html')
+def listagent(request):
+  
+    # Endpoint API untuk mengambil data agent
+    api_url = request.build_absolute_uri('/api/agent-applications/')  # Sesuaikan URL ini
+    try:
+        # Mengambil data dari API
+        response = requests.get(api_url)
+        response.raise_for_status()  # Memastikan respons berhasil
+        agent_applications = response.json()  # Parse JSON menjadi dict
+    except requests.exceptions.RequestException as e:
+        # Tangani error saat mengakses API
+        print(f"Error fetching agent applications: {e}")
+        agent_applications = []  # Default jika terjadi kesalahan
+
+    # Kirim data ke template
+    return render(request, 'listagent.html', {'agent_applications': agent_applications})
+# =============== Customer ========================
+# Daftar Agent
+@login_required
+@group_required('CUSTOMER')
+def agent_form(request):
+    # Periksa apakah user sudah memiliki aplikasi agen
+    agent_application = AgentApplication.objects.filter(user=request.user).first()
+
+    if request.method == "POST":
+        if agent_application:
+            messages.warning(request, "You have already submitted an agent application.")
+            return redirect('agent_form')
+        
+        # Proses pengiriman form
+        form = AgentApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            agent_application = form.save(commit=False)
+            agent_application.user = request.user
+            agent_application.save()
+            return redirect('agent_form')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+    
+    else:
+        form = AgentApplicationForm()
+
+    return render(request, 'agent_form.html', {
+        'form': form,
+        'agent_application': agent_application,
+    })
+
+
 
   
 #================== agent =======================
@@ -357,32 +403,11 @@ def order_detail(request, order_id):
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
   
-# Daftar Agent
-@login_required
-@group_required('CUSTOMER')
-def agent_form(request):
-    # Periksa apakah user sudah memiliki aplikasi agen
-    agent_application = AgentApplication.objects.filter(user=request.user).first()
-
-    if request.method == "POST":
-        if agent_application:
-            messages.warning(request, "You have already submitted an agent application.")
-            return redirect('agent_form')
-        
-        # Proses pengiriman form
-        form = AgentApplicationForm(request.POST, request.FILES)
-        if form.is_valid():
-            agent_application = form.save(commit=False)
-            agent_application.user = request.user
-            agent_application.save()
-            return redirect('agent_form')
-        else:
-            messages.error(request, "Please correct the errors in the form.")
     
-    else:
-        form = AgentApplicationForm()
-
-    return render(request, 'agent_form.html', {
-        'form': form,
-        'agent_application': agent_application,
-    })
+# API view untuk AgentApplication
+class AgentApplicationViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint untuk operasi CRUD pada model AgentApplication.
+    """
+    queryset = AgentApplication.objects.all()
+    serializer_class = AgentApplicationSerializer

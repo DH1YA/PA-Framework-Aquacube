@@ -8,13 +8,20 @@
             <div class="justify-content-center row mt-5">
                 <div class="col-lg-12">
                     <div class="card-agent mb-4">
-                        <form action="#" class="">
-                            <div class="g-2 row d-flex">
-                                <div class="search-agent d-flex">
-                                    <input id="exampleFormControlInput1" placeholder="Search... " type="search" class="form-control" />
-                                    <a class="btn btn-search-agent" href="#">Search
+                        <form action="{% url 'listagent' %}" method="get" class="">
+                            <div class="g-2 row d-flex row-search-product">
+                                <div class="search-product d-flex">
+                                    <input 
+                                        id="exampleFormControlInput1" 
+                                        name="q" 
+                                        placeholder="Search... " 
+                                        type="search" 
+                                        class="form-control" 
+                                        value="{{ query|default:'' }}" 
+                                    />
+                                    <button type="submit" class="btn btn-search-product">Search
                                         <i class="fas fa-search"></i>
-                                    </a>
+                                    </button>
                                 </div>
                             </div>
                         </form>
@@ -23,55 +30,34 @@
             </div>
             <div class="row">
                     <div class="agent-list">
+                        {% for agent in agent_applications %}
                         <div class="agent-list-box card mt-4">
                             <div class="p-4 card-body">
                                 <div class="align-items-center row">
                                     <div class="col-auto">
                                         <div class="agent-list-images">
-                                            <a href="#"><img src="{% static 'images/product5.png' %}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
+                                            <a href="#"><img src="{{ agent.photo|default:'/static/images/default-avatar.png' }}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
                                         </div>
                                     </div>
                                     <div class="col-lg-6">
                                         <div class="agent-list-content mt-3 mt-lg-0">
-                                            <h2 class="fs-19 mb-0">Aquacube Partner Jawa Timur</h2>
-                                            <p class="text-muted mb-3 mt-1">aquacubejatim@gmail.com</p>
+                                            <h2 class="fs-19 mb-0">{{ agent.company_name }}</h2>
+                                            <p class="text-muted mb-3 mt-1">{{ agent.company_email }}</p>
                                             <ul class="list-inline mb-0 text-muted">
                                                 <li class="list-inline-item"><i class="fas fa-map-marker-alt"></i>
-                                                    Jl. Pasar Turi Kompl Pert Sinar Galaxi Bl D/38 B
+                                                    {{ agent.company_address|default:"No address provided" }}
                                                 </li>
                                                 <li class="list-inline-item"><i class="fas fa-phone-alt"></i>
-                                                    081347822055</li>
+                                                    {{ agent.company_contact|default:"No phone provided" }}
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="agent-list-box card mt-4">
-                            <div class="p-4 card-body">
-                                <div class="align-items-center row">
-                                    <div class="col-auto">
-                                        <div class="agent-list-images">
-                                            <a href="#"><img src="{% static 'images/product5.png' %}" alt="" class="avatar-md img-thumbnail rounded-circle" /></a>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <div class="agent-list-content mt-3 mt-lg-0">
-                                            <h2 class="fs-19 mb-0">Aquacube Partner Banjarmasin</h2>
-                                            <p class="text-muted mb-3 mt-1">aquacubekalsel@gmail.com</p>
-                                            <ul class="list-inline mb-0 text-muted">
-                                                <li class="list-inline-item"><i class="fas fa-map-marker-alt"></i>
-                                                    Jl. Jenderal Ahmad Yani Km 4,7 No. 435 A, Banjarmasin
-                                                </li>
-                                                <li class="list-inline-item"><i class="fas fa-phone-alt"></i>
-                                                    081347822044</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
+                        
                     </div>
                 </div>
             </div>
