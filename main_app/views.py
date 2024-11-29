@@ -11,6 +11,7 @@ from .models import Cart, CartItem, Product,Order, OrderItem, AgentApplication
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .forms import CustomUserChangeForm
+from .decorators import group_required
 # Create your views here.
 
 def home(request): 
@@ -120,6 +121,8 @@ def signup_view(request):
     return render(request, 'signup.html', {'form': form})
 
 # ============== cart and product ===========================
+@login_required
+@group_required('AGENT')
 def agent_productlist(request): 
   products = Product.objects.all()
   return render(request, 'dashboard_agent/product.html', {'products':products})
@@ -243,6 +246,7 @@ def direct_order_page(request, product_id):
     }
     return render(request, 'shopping/order.html', context)
 
+@login_required
 def process_order(request):
     if request.method == 'POST':
         product_id = request.POST.get('product_id')
@@ -329,21 +333,26 @@ def payment(request):
         'form': form
     })
 
+@login_required
 def listpay(request):
     return render(request, 'shopping/listpay.html')
   
 # Riwayat Pesanan
+@login_required
 def order_history(request):
     orders = Order.objects.filter(user=request.user).order_by('-created_at')
     return render(request, 'shopping/order_history.html', {'orders': orders})
 
 # Detail Pesanan
+@login_required
 def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
   
 # Daftar Agent
+@login_required
+@group_required('CUSTOMER')
 def agent_form(request):
     # Periksa apakah user sudah memiliki aplikasi agen
     agent_application = AgentApplication.objects.filter(user=request.user).first()
