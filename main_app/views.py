@@ -68,21 +68,19 @@ def listorder(request):
 
 
 def listagent(request):
-  
-    # Endpoint API untuk mengambil data agent
-    api_url = request.build_absolute_uri('/api/agent-applications/')  # Sesuaikan URL ini
-    try:
-        # Mengambil data dari API
-        response = requests.get(api_url)
-        response.raise_for_status()  # Memastikan respons berhasil
-        agent_applications = response.json()  # Parse JSON menjadi dict
-    except requests.exceptions.RequestException as e:
-        # Tangani error saat mengakses API
-        print(f"Error fetching agent applications: {e}")
-        agent_applications = []  # Default jika terjadi kesalahan
+    query = request.GET.get('q', '')  # Ambil query pencarian dari URL
+    api_url = f"http://127.0.0.1:8000/api/agents/?q={query}"  # Sesuaikan dengan URL API Anda
+    response = requests.get(api_url)  # Fetch data dari API
+    if response.status_code == 200:
+        agent_applications = response.json()  # Parse JSON ke Python dict
+    else:
+        agent_applications = []  # Jika gagal, gunakan data kosong
 
-    # Kirim data ke template
-    return render(request, 'listagent.html', {'agent_applications': agent_applications})
+    context = {
+        'agent_applications': agent_applications,
+        'query': query,  # Kirim query untuk di-render kembali di template
+    }
+    return render(request, 'listagent.html', context)
 # =============== Customer ========================
 # Daftar Agent
 @login_required
@@ -403,11 +401,18 @@ def order_detail(request, order_id):
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
   
-    
+from django.db.models import Q
 # API view untuk AgentApplication
 class AgentApplicationViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint untuk operasi CRUD pada model AgentApplication.
-    """
     queryset = AgentApplication.objects.all()
     serializer_class = AgentApplicationSerializer
+    def get_queryset(self):
+        query = self.request.query_params.get('q', '')
+        if query:
+            return AgentApplication.objects.filter(
+                Q(company_name__icontains=query) |
+                Q(company_address__icontains=query) |
+                Q(company_contact__icontains=query) |
+                Q(company_email__icontains=query)
+            )
+        return super().get_queryset()

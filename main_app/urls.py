@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 from .views import AgentApplicationViewSet
 
 router = DefaultRouter()
-router.register(r'agent-applications', AgentApplicationViewSet, basename='agentapplication')
+router.register(r'agents', AgentApplicationViewSet)
 
 urlpatterns = [
     path('', views.home, name='home'),
