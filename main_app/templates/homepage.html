@@ -139,9 +139,11 @@
         </div>
       </div>
     </section>
-
+    {% if request.user.is_authenticated %}
+    {% if request.user.user_type == 'agent'  or request.user.user_type == 'Agent' %}
+    {% else %}
     <!-- tab4(AGENT) -->
-     <section id="agent">
+    <section id="agent">
       <div class="container">
         <div class="row">
           <div class="col-sm-9 p-5 col-agent mt-5">
@@ -170,6 +172,38 @@
         </div>
       </div>
      </section>
+    {% endif %}
+    {% else %}
+    <section id="agent">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-9 p-5 col-agent mt-5">
+            <h2>Join as an Agent and Unlock Exclusive <br> Product Discounts!</h2>
+            <p class="mt-2"> 
+              Become an AquaCube Agent today and immerse yourself in a rewarding partnership with benefits designed 
+              exclusively for you. As an agent, you'll gain access to discounts on a range of premium AquaCube 
+              products, from our high-quality mineral water to our pristine ice products, tailored to meet all your 
+              needs. This unique opportunity allows you to enjoy exclusive pricing that ensures you get the best 
+              value, empowering you to maximize your savings while promoting trusted, quality products. Joining as 
+              an agent not only elevates your buying power but also gives you direct access to new product launches, 
+              seasonal discounts, and priority information on upcoming promotions.</p>
+            <p> Beyond just savings, joining AquaCube as an agent means becoming part of a network committed to providing 
+              refreshing solutions to customers everywhere. You’ll have the chance to contribute to a brand that 
+              prioritizes quality, customer satisfaction, and environmental responsibility. Whether you’re interested in 
+              our products for personal use or looking to share them with others in your community, AquaCube ensures that 
+              every agent enjoys a hassle-free experience with exclusive perks designed to make your role enjoyable and 
+              profitable. Join our team today and experience firsthand the advantages that come with being a valued AquaCube Agent!</p>
+              <a href="/become agent">
+                <button class="join-btn">Join Us</button>
+              </a>
+          </div>
+          <div class="col-3 p-3 mt-5">
+            <img src="{% static 'images/agent2.png' %}" class="w-100 img-agent mt-5" alt="Agent" />
+          </div>
+        </div>
+      </div>
+     </section>
+    {% endif %}
 
     <!-- tab5(PRODUCT) -->
     <section id="product" class="overflow-hidden">
