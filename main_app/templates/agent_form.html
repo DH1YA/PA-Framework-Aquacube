@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+{% load static %}
+{% block title %}Agent{% endblock %}
+
+{% block content %}
+<section id="agent" class="sec-agent">
+    <div class="container">
+        <h2>Agent Form</h2>
+
+        {% if agent_application %}
+        <!-- Tampilan jika user sudah memiliki aplikasi -->
+        <div class="alert alert-info">
+            <h5>Status: {{ agent_application.status|title }}</h5>
+            <p>Application submitted on: {{ agent_application.created_at }}</p>
+            {% if agent_application.status == "rejected" %}
+                <p class="text-danger">Mohon maaf permintaan anda belum dapat disetujui. Silahkan hubungi pihak kami untuk detailnya.</p>
+            {% endif %}
+            {% if agent_application.status == "approved" %}
+                <p class="text-success">Selamat! Pendaftaran sebagai agent telah disetujui, silahkan login kembali untuk mengakses produk dengan harga spesial.</p>
+                <a href="{% url 'login'%}">
+                  <button class="btn btn-signin" style="color :#FAFAFA;">Sign In</button>
+                </a>
+            {% endif %}
+        </div>
+        {% else %}
+        <!-- Tampilan jika user belum memiliki aplikasi -->
+        <form class="form-page mt-3" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="d-flex justify-content-center">
+                <button type="submit" class="btn btn-submit-agent btn-block mb-4">Submit</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

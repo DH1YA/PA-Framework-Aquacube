@@ -1,13 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, get_user_model, logout
-from .forms import SignUpForm, CustomAuthenticationForm, PaymentForm
+from .forms import SignUpForm, CustomAuthenticationForm, PaymentForm, AgentApplicationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail
 from django.shortcuts import render
 from django.contrib import messages
 from django.http import JsonResponse
-from .models import Cart, CartItem, Product,Order, OrderItem
+from .models import Cart, CartItem, Product,Order, OrderItem, AgentApplication
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 from .forms import CustomUserChangeForm
@@ -342,3 +342,31 @@ def order_detail(request, order_id):
     order = get_object_or_404(Order, id=order_id, user=request.user)
     order_items = OrderItem.objects.filter(order=order)
     return render(request, 'shopping/order_detail.html', {'order': order, 'order_items': order_items})
+  
+# Daftar Agent
+def agent_form(request):
+    # Periksa apakah user sudah memiliki aplikasi agen
+    agent_application = AgentApplication.objects.filter(user=request.user).first()
+
+    if request.method == "POST":
+        if agent_application:
+            messages.warning(request, "You have already submitted an agent application.")
+            return redirect('agent_form')
+        
+        # Proses pengiriman form
+        form = AgentApplicationForm(request.POST, request.FILES)
+        if form.is_valid():
+            agent_application = form.save(commit=False)
+            agent_application.user = request.user
+            agent_application.save()
+            return redirect('agent_form')
+        else:
+            messages.error(request, "Please correct the errors in the form.")
+    
+    else:
+        form = AgentApplicationForm()
+
+    return render(request, 'agent_form.html', {
+        'form': form,
+        'agent_application': agent_application,
+    })

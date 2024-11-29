@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import CustomUser
+from .models import CustomUser, AgentApplication
 from django import forms
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserChangeForm
@@ -51,3 +51,14 @@ class PaymentForm(forms.Form):
         label='Upload Payment Proof',
         widget=forms.ClearableFileInput(attrs={'class': 'form-control-file'})  
     )
+
+class AgentApplicationForm(forms.ModelForm):
+    class Meta:
+        model = AgentApplication
+        fields = ['company_name', 'company_address', 'npwp', 'photo']
+        widgets = {
+            'company_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'company_address': forms.TextInput(attrs={'class': 'form-control'}),
+            'npwp': forms.TextInput(attrs={'class': 'form-control'}),
+            'photo': forms.FileInput(attrs={'class': 'form-control'}),
+        }
