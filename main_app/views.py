@@ -124,8 +124,15 @@ def signup_view(request):
 @login_required
 @group_required('AGENT')
 def agent_productlist(request): 
-  products = Product.objects.all()
-  return render(request, 'dashboard_agent/product.html', {'products':products})
+  query = request.GET.get('q', '') 
+  if query:
+        products = Product.objects.filter(
+            user_type='agent',
+            name__icontains=query 
+        )
+  else:
+      products = Product.objects.filter(user_type='agent')
+  return render(request, 'dashboard_agent/product.html', {'products':products, 'query': query})
 
 def cust_productlist(request):
     query = request.GET.get('q', '') 
